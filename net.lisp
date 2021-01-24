@@ -14,10 +14,10 @@
   (let* ((path (join-fragments (push *base-url* fragments)))
 	 (url (url-encode path))	 
 	 (yason:*parse-object-key-fn* #'convert-to-keyword)
-	 (flexi-streams:flexi-stream-external-format stream :utf-8)
 	 (stream (drakma:http-request url :want-stream t)))
+    (setf (flexi-streams:flexi-stream-external-format stream) :utf-8)
     (yason:parse stream :object-as :plist)))
 
 (defun convert-to-keyword (js-name)
   (intern (string-upcase (kebab:to-kebab-case js-name)) "KEYWORD"))
-			 
+

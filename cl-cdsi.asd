@@ -5,7 +5,7 @@
   :author "Dennis Dunn <ansofive@gmail.com>"
   :license  "MIT"
   :version "0.0.1"
-  :depends-on (#:drakma #:yason #:cl-ppcre #':kebab)
+  :depends-on (#:drakma #:yason #:cl-ppcre #:kebab)
   :serial t
   :components ((:file "package")
 	       (:file "util")
