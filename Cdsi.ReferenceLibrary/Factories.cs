@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Cdsi.SupportingData;
 using Cdsi.Testcases;
@@ -19,20 +16,17 @@ namespace Cdsi.ReferenceLibrary
         public static IDictionary<string, antigenSupportingData> CreateAntigenMap(DirectoryInfo inFolder)
         {
             var deserializer = new XmlSerializer(typeof(antigenSupportingData));
-            var assembly = Assembly.GetAssembly(typeof(Metadata));
 
-            return assembly.GetManifestResourceNames()
-                  .Select(x => Tuple.Create(x, re.Match(x)))
-                  .Where(x => x.Item2.Success)
-                  .Select(x => assembly.GetManifestResourceStream(x.Item1))
+            return inFolder.GetFiles("*-508.xml")
+                  .Select(x => x.OpenRead())
                   .Select(x => (antigenSupportingData)deserializer.Deserialize(x))
                   .Select(x => KeyValuePair.Create(x.series[0].targetDisease, x))
                   .AsMap();
         }
 
-        public static IDictionary<string, string> CreateVaccineTypeMap()
+        public static IDictionary<string, string> CreateVaccineTypeMap(IDictionary<string, antigenSupportingData> antigenMap)
         {
-            return Reference.Antigen.Values
+            return antigenMap.Values
                     .SelectMany(x => x.series)
                     .SelectMany(x => x.seriesDose)
                     .SelectMany(x => x.preferableVaccine.Select(xx => KeyValuePair.Create(xx.cvx, xx.vaccineType))
@@ -44,13 +38,12 @@ namespace Cdsi.ReferenceLibrary
 
         // Schedule supporting data
 
-        public static scheduleSupportingData CreateSupportingData(DirectoryInfo inFolder)
+        public static scheduleSupportingData CreateSupportingData(FileInfo inFile)
         {
-            var name = "Cdsi.SupportingData.xml.ScheduleSupportingData.xml";
-            var assembly = Assembly.GetAssembly(typeof(Metadata));
-            var resource = assembly.GetManifestResourceStream(name);
             var deserializer = new XmlSerializer(typeof(scheduleSupportingData));
-            return (scheduleSupportingData)deserializer.Deserialize(resource);
+
+            using var stream = inFile.OpenRead();
+            return (scheduleSupportingData)deserializer.Deserialize(stream);
         }
 
         // Testcases
@@ -62,12 +55,11 @@ namespace Cdsi.ReferenceLibrary
                  .Select(x => KeyValuePair.Create(x.CdcTestId, x))
                  .AsMap();
         }
+
         private static DataSet GetDataSet(FileInfo inFile)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            var assembly = Assembly.GetAssembly(typeof(TestcaseData.Metadata));
-
-            using var stream = assembly.GetManifestResourceStream(ResourceName);
+            using var stream = inFile.OpenRead();
             using var reader = ExcelReaderFactory.CreateReader(stream);
             return reader.AsDataSet(new ExcelDataSetConfiguration()
             {
