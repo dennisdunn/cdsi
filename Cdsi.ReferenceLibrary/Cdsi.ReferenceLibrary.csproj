@@ -6,8 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cdsi.SupportingData\Cdsi.SupportingData.csproj" />
-    <ProjectReference Include="..\Cdsi.TestcaseData\Cdsi.TestcaseData.csproj" />
-    <ProjectReference Include="..\Cdsi.Utility\Cdsi.Utility.csproj" />
+    <ProjectReference Include="..\Cdsi.Testcase\Cdsi.Testcase.csproj" />
   </ItemGroup>
 
 </Project>

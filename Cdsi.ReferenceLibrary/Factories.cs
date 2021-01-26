@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Cdsi.SupportingData;
+using Cdsi.Testcases;
+using ExcelDataReader;
 
 namespace Cdsi.ReferenceLibrary
 {
     public static class Factories
     {
-        private static readonly Regex re = new Regex("Cdsi.SupportingData.xml.AntigenSupportingData-\\s*([\\w\\s]*)-508.xml");
-        public static IDictionary<string, antigenSupportingData> CreateAntigenMap()
+        // Antigen supporting data
+        public static IDictionary<string, antigenSupportingData> CreateAntigenMap(DirectoryInfo inFolder)
         {
             var deserializer = new XmlSerializer(typeof(antigenSupportingData));
             var assembly = Assembly.GetAssembly(typeof(Metadata));
@@ -37,13 +42,42 @@ namespace Cdsi.ReferenceLibrary
                     .AsMap();
         }
 
-        public static scheduleSupportingData CreateSupportingData()
+        // Schedule supporting data
+
+        public static scheduleSupportingData CreateSupportingData(DirectoryInfo inFolder)
         {
             var name = "Cdsi.SupportingData.xml.ScheduleSupportingData.xml";
             var assembly = Assembly.GetAssembly(typeof(Metadata));
             var resource = assembly.GetManifestResourceStream(name);
             var deserializer = new XmlSerializer(typeof(scheduleSupportingData));
             return (scheduleSupportingData)deserializer.Deserialize(resource);
+        }
+
+        // Testcases
+
+        public static IDictionary<string, ITestcase> CreateTestcaseMap(FileInfo inFile)
+        {
+            return GetDataSet(inFile).Tables[0].Rows.AsEnumerable()
+                 .Select(x => x.AsTestcase())
+                 .Select(x => KeyValuePair.Create(x.CdcTestId, x))
+                 .AsMap();
+        }
+        private static DataSet GetDataSet(FileInfo inFile)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var assembly = Assembly.GetAssembly(typeof(TestcaseData.Metadata));
+
+            using var stream = assembly.GetManifestResourceStream(ResourceName);
+            using var reader = ExcelReaderFactory.CreateReader(stream);
+            return reader.AsDataSet(new ExcelDataSetConfiguration()
+            {
+                UseColumnDataType = true,
+                FilterSheet = (tableReader, sheetIndex) => sheetIndex == 2,
+                ConfigureDataTable = (tableReader) => new ExcelDataTableConfiguration()
+                {
+                    UseHeaderRow = true
+                }
+            });
         }
     }
 }
