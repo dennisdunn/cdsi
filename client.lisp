@@ -47,6 +47,9 @@
 (defun safe-parse-boolean (thing)
   (safe-parse #'parse-boolean thing))
 
+(defun safe-parse-interval (thing)
+  (safe-parse #'cdsi-dt:parse-interval thing))
+
 ;;; Property list tools
 
 (defun plist-keys (plist)
@@ -66,12 +69,14 @@
    (every #'identity (mapcar #'symbolp (plist-keys thing)))))
 
 (defun with-plist-key (fn key)
+  "Create a function that will apply the function (fn) to the value returned by (getf plist key)"
   (lambda (plist)
     (let ((value (getf plist key)))
       (when value
             (setf (getf plist key) (funcall fn value))))))
 
 (defun visit (fn thing)
+  "Visit each node in a 'property tree' and apply fn to the node. A 'property tree' is a property list with values that can be another property list or a list of property lists."
   (if (is-plist thing) (funcall fn thing))
   (if (listp thing) (mapc #'(lambda (thing) (visit fn thing)) thing))
   thing)
@@ -79,51 +84,64 @@
 ;;; Conversion tools
 
 (defparameter *date-keys* '(:DATE-ADMINISTERED
-       :DOB
-       :ASSESSMENT-DATE
-       :EARLIEST-DATE
-       :PAST-DUE-DATE
-       :RECOMMENDED-DATE
-       :DATE-ADDED
-       :DATE-UPDATED))
-; dates
+			    :DOB
+			    :ASSESSMENT-DATE
+			    :EARLIEST-DATE
+			    :PAST-DUE-DATE
+			    :RECOMMENDED-DATE
+			    :DATE-ADDED
+			    :DATE-UPDATED))
 
 (defparameter *keyword-keys* '(:MVX
-          :ANTIGEN
-          :VACCINE-NAME
-          :GENDER
-          :DOSE-NUMBER
-          :EVALUATION-STATUS
-          :SERIES-STATUS
-          :VACCINE-GROUP
-          :TARGET-DISEASE
-          :SERIES-TYPE
-          :SERIES-PRIORITY
-          :SERIES-GROUP-NAME))
-; keywords
+			       :ANTIGEN
+			       :VACCINE-NAME
+			       :GENDER
+			       :DOSE-NUMBER
+			       :EVALUATION-STATUS
+			       :SERIES-STATUS
+			       :VACCINE-GROUP
+			       :TARGET-DISEASE
+			       :SERIES-TYPE
+			       :SERIES-PRIORITY
+			       :SERIES-GROUP-NAME))
 
 (defparameter *integer-keys* '(:CVX
-          :GUIDELINE-CODE
-          :CODE
-          :SERIES-GROUP
-          :FORECAST-NUM
-          :FROM-TARGET-DOSE
-          :SERIES-TYPE
-          :SERIES-PREFERENCE
-          :EQUIVALENT-SERIES-GROUPS))
-; integers
+			       :GUIDELINE-CODE
+			       :CODE
+			       :SERIES-GROUP
+			       :FORECAST-NUM
+			       :FROM-TARGET-DOSE
+			       :SERIES-TYPE
+			       :SERIES-PREFERENCE
+			       :EQUIVALENT-SERIES-GROUPS))
 
 (defparameter *float-keys* '(:VOLUME
-        :CHANGED-IN-VERSION))
-; floats
+			     :CHANGED-IN-VERSION))
 
 (defparameter *boolean-keys* '(:RECURRING-DOSE
-          :FORECAST-VACCINE-TYPE
-          :FROM-PREVIOUS
-          :DEFAULT-SERIES
-          :PRODUCT-PATH ))
+			       :FORECAST-VACCINE-TYPE
+			       :FROM-PREVIOUS
+			       :DEFAULT-SERIES
+			       :PRODUCT-PATH ))
+
+(defparameter *interval-keys* '(:ABS-MIN-AGE
+				:MIN-AGE
+				:EARLIEST-REC-AGE
+				:LATEST-REC-AGE
+				:MAX-AGE				
+				:EFFECTIVE-DATE
+				:CESSATION-DATE
+				:BEGIN-AGE
+				:END-AGE
+				:ABS-MIN-INT
+				:MIN-INT
+				:EARLIEST-REC-INT
+				:LATEST-REC-INT
+				:MIN-AGE-TO-START
+				:MAX-AGE-TO-START ))
 
 (defun convert-values (fn keys thing)
+  "Apply the function (fn) to each of the values retrieved by (getf key thing)"
   (let ((fns (mapcar (lambda (key) (with-plist-key fn key)) keys)))
     (mapc (lambda (fn) (visit fn thing)) fns))
   thing)
@@ -133,4 +151,5 @@
   (convert-values #'safe-parse-keyword *keyword-keys* thing)
   (convert-values #'safe-parse-integer *integer-keys* thing)
   (convert-values #'safe-parse-float *float-keys* thing)
+  (convert-values #'safe-parse-interval *interval-keys* thing)
   (convert-values #'safe-parse-boolean *boolean-keys* thing))

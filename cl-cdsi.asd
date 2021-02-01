@@ -8,5 +8,6 @@
   :depends-on (#:drakma #:yason #:cl-ppcre #:kebab #:local-time #:parse-float)
   :serial t
   :components ((:file "package")
-               (:file "api-client")
-               (:file "cl-cdsi")))
+               (:file "client")
+	       (:file "date")
+               (:file "cdsi")))

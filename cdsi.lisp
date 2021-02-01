@@ -4,7 +4,7 @@
 
 (defun make-antigen-administered-doses (doses)
   "Take a list of vaccine administered doses and create an ordered list of antigen administered doses."
-  (stable-sort (mapcan #'split-dose doses) #'string-lessp :key #'fourth))
+  (stable-sort (convert-values #'safe-parse-keyword '(:antigen) (mapcan #'split-dose doses)) #'string-lessp :key #'fourth))
 
 (defun make-patient-series (series)
   "Make a patient series from an antigen series."
