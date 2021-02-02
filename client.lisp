@@ -1,6 +1,6 @@
 ;;;; Networking
 
-(in-package #:cl-cdsi)
+(in-package #:cl-cdsi-client)
 
 (defparameter *base-url* "https://cdsi-api.herokuapp.com/api")
 
@@ -48,7 +48,7 @@
   (safe-parse #'parse-boolean thing))
 
 (defun safe-parse-interval (thing)
-  (safe-parse #'cdsi-dt:parse-interval thing))
+  (safe-parse #'datecalc:parse-interval thing))
 
 ;;; Property list tools
 
