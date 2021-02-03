@@ -9,11 +9,12 @@
 	   :*base-url*))
 
 (defpackage #:cl-cdsi-date
-  (:nicknames #:datecalc)
+  (:nicknames #:calcdate)
   (:use #:cl
         #:cl-ppcre
 	#:local-time)
-  (:export :parse-interval
+  (:export :parse-intervals
+	   :apply-intervals
 	   :date+))
 
 (defpackage #:cl-cdsi
