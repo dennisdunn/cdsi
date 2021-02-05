@@ -48,7 +48,7 @@
   (safe-parse #'parse-boolean thing))
 
 (defun safe-parse-interval (thing)
-  (safe-parse #'datecalc:parse-interval thing))
+  (safe-parse #'cdsi-date:parse-intervals thing))
 
 ;;; Property list tools
 

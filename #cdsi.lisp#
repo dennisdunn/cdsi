@@ -4,7 +4,7 @@
 
 (defun make-antigen-administered-doses (doses)
   "Take a list of vaccine administered doses and create an ordered list of antigen administered doses."
-  (stable-sort (convert-values #'client::safe-parse-keyword '(:antigen) (mapcan #'split-dose doses)) #'string-lessp :key #'fourth))
+  (stable-sort (client::convert-values #'client::safe-parse-keyword '(:antigen) (mapcan #'split-dose doses)) #'string-lessp :key #'fourth))
 
 (defun make-patient-series (series)
   "Make a patient series from an antigen series."
@@ -23,4 +23,4 @@
   (let* ((cvx (getf dose :cvx))
          (date (getf dose :date-administered))
          (antigens (fetch "vaccines" cvx "antigens")))
-    (mapcar (lambda (antigen) (list :date-administered date :antigen antigen :lot-expiration (local-time:encode-timestamp 0 0 0 0 31 1 2999) :condition nil) antigens))))
+    (mapcar (lambda (antigen) (list :date-administered date :antigen antigen :lot-expiration (local-time:encode-timestamp 0 0 0 0 31 1 2999) :condition nil)) antigens)))

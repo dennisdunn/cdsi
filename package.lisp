@@ -9,7 +9,7 @@
 	   :*base-url*))
 
 (defpackage #:cl-cdsi-date
-  (:nicknames #:calcdate)
+  (:nicknames #:cdsi-date)
   (:use #:cl
         #:cl-ppcre
 	#:local-time)
