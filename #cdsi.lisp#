@@ -23,4 +23,4 @@
   (let* ((cvx (getf dose :cvx))
          (date (getf dose :date-administered))
          (antigens (fetch "vaccines" cvx "antigens")))
-    (mapcar (lambda (antigen) (list :date-administered date :antigen antigen :lot-expiration (local-time:encode-timestamp 0 0 0 0 31 1 2999) :condition nil)) antigens)))
+    (mapcar (lambda (antigen) (list :date-administered date :antigen antigen)) antigens)))
