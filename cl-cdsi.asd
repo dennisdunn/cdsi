@@ -14,5 +14,7 @@
   :serial t
   :components ((:file "package")
                (:file "client")
+	       (:file "parse")
+	       (:file "plist")
 	       (:file "date")
                (:file "cdsi")))

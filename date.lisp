@@ -6,19 +6,6 @@
 
 (in-package #:cl-cdsi-date)
 
-(defparameter *interval-re* "[a-zA-Z]+|[-+]?\\d+")
-(defparameter *invalid-chars* "[sS\\s]")
-
-(defun parse-intervals (str)
-  "Parse a string of the form '12 days - 4 months' into a list of plists."
-  (let ((tokens (ppcre:all-matches-as-strings
-		 *interval-re*
-		 (ppcre:regex-replace-all *invalid-chars* str ""))))
-    (loop :for (a b) :on tokens :by #'cddr
-	  :while b
-	  :collect (list :amount (parse-integer a)
-			 :unit (intern (string-upcase b) "KEYWORD")))))
-
 (defun apply-intervals (date intervals)
 	       (reduce #'date+ intervals :initial-value date))
 
