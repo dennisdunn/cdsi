@@ -19,8 +19,8 @@
 
 (defun as-boolean (thing)
   (cond ((numberp thing) (not (eq 0 thing)))
-	((stringp thing) (not (not (ppcre:scan "^[YyTt]" thing))))
-	(t thing)))
+        ((stringp thing) (not (not (ppcre:scan "^[YyTt]" thing))))
+        (t thing)))
 
 (defun as-date (thing)
   (local-time:parse-timestring thing))
@@ -28,9 +28,9 @@
 (defun as-interval (str)
   "Parse a string of the form '12 days - 4 months' into a list of plists."
   (let ((tokens (ppcre:all-matches-as-strings
-		 *interval-re*
-		 (ppcre:regex-replace-all *invalid-chars* str ""))))
+                 *interval-re*
+                 (ppcre:regex-replace-all *invalid-chars* str ""))))
     (loop :for (a b) :on tokens :by #'cddr
-	  :while b
-	  :collect (list :amount (as-number a)
-			 :unit (as-keyword b)))))
+          :while b
+          :collect (list :amount (as-number a)
+                         :unit (as-keyword b)))))

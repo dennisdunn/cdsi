@@ -6,15 +6,15 @@
   :license "MIT"
   :version "0.0.1"
   :depends-on (#:yason
-	       #:kebab
-	       #:drakma
-	       #:cl-ppcre
-	       #:local-time
-	       #:parse-float)
+               #:kebab
+               #:drakma
+               #:cl-ppcre
+               #:local-time
+               #:parse-float)
   :serial t
   :components ((:file "package")
                (:file "client")
-	       (:file "parse")
-	       (:file "plist")
-	       (:file "date")
+               (:file "parse")
+               (:file "plist")
+               (:file "date")
                (:file "cdsi")))
