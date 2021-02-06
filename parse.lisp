@@ -13,7 +13,9 @@
     (sb-int:simple-parse-error () (parse-float thing))))
 
 (defun as-keyword (thing)
-  (intern (string-upcase (kebab:to-kebab-case thing)) "KEYWORD"))
+  (if (not (equal "" thing))
+      (intern (string-upcase (kebab:to-kebab-case thing)) "KEYWORD")
+      nil))
 
 (defun as-boolean (thing)
   (cond ((numberp thing) (not (eq 0 thing)))

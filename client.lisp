@@ -24,7 +24,6 @@
 
 (defparameter *keyword-keys* '(:MVX
 			       :ANTIGEN
-			       :VACCINE-NAME
 			       :GENDER
 			       :DOSE-NUMBER
 			       :EVALUATION-STATUS
@@ -44,6 +43,7 @@
 			      :SERIES-TYPE
 			      :SERIES-PREFERENCE
 			      :EQUIVALENT-SERIES-GROUPS
+			      :OBSERVATION-CODE
 			      :VOLUME
 			      :CHANGED-IN-VERSION))
 
@@ -51,7 +51,7 @@
 			       :FORECAST-VACCINE-TYPE
 			       :FROM-PREVIOUS
 			       :DEFAULT-SERIES
-			       :PRODUCT-PATH ))
+			       :PRODUCT-PATH))
 
 (defparameter *interval-keys* '(:ABS-MIN-AGE
 				:MIN-AGE
@@ -67,7 +67,7 @@
 				:EARLIEST-REC-INT
 				:LATEST-REC-INT
 				:MIN-AGE-TO-START
-				:MAX-AGE-TO-START ))
+				:MAX-AGE-TO-START))
 
 
 (defun with-plist-key (fn key)
