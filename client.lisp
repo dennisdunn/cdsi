@@ -13,61 +13,62 @@
     (convert-all (yason:parse stream :object-as :plist))))
 
 (defparameter *date-keys* '(:DATE-ADMINISTERED
-       :LOT-EXPIRATION
-       :DOB
-       :ASSESSMENT-DATE
-       :EARLIEST-DATE
-       :PAST-DUE-DATE
-       :RECOMMENDED-DATE
-       :DATE-ADDED
-       :DATE-UPDATED))
+			    :LOT-EXPIRATION
+			    :DOB
+			    :ASSESSMENT-DATE
+			    :EARLIEST-DATE
+			    :PAST-DUE-DATE
+			    :RECOMMENDED-DATE
+			    :DATE-ADDED
+			    :DATE-UPDATED))
+
+(defparameter *gender-keys* '(:GENDER))
 
 (defparameter *keyword-keys* '(:MVX
-          :ANTIGEN
-          :GENDER
-          :DOSE-NUMBER
-          :EVALUATION-STATUS
-          :SERIES-STATUS
-          :VACCINE-GROUP
-          :TARGET-DISEASE
-          :SERIES-TYPE
-          :SERIES-PRIORITY
-          :SERIES-GROUP-NAME))
+			       :ANTIGEN
+			       :DOSE-NUMBER
+			       :EVALUATION-STATUS
+			       :SERIES-STATUS
+			       :VACCINE-GROUP
+			       :TARGET-DISEASE
+			       :SERIES-TYPE
+			       :SERIES-PRIORITY
+			       :SERIES-GROUP-NAME))
 
 (defparameter *number-keys* '(:CVX
-         :GUIDELINE-CODE
-         :CODE
-         :SERIES-GROUP
-         :FORECAST-NUM
-         :FROM-TARGET-DOSE
-         :SERIES-TYPE
-         :SERIES-PREFERENCE
-         :EQUIVALENT-SERIES-GROUPS
-         :OBSERVATION-CODE
-         :VOLUME
-         :CHANGED-IN-VERSION))
+			      :GUIDELINE-CODE
+			      :CODE
+			      :SERIES-GROUP
+			      :FORECAST-NUM
+			      :FROM-TARGET-DOSE
+			      :SERIES-TYPE
+			      :SERIES-PREFERENCE
+			      :EQUIVALENT-SERIES-GROUPS
+			      :OBSERVATION-CODE
+			      :VOLUME
+			      :CHANGED-IN-VERSION))
 
 (defparameter *boolean-keys* '(:RECURRING-DOSE
-          :FORECAST-VACCINE-TYPE
-          :FROM-PREVIOUS
-          :DEFAULT-SERIES
-          :PRODUCT-PATH))
+			       :FORECAST-VACCINE-TYPE
+			       :FROM-PREVIOUS
+			       :DEFAULT-SERIES
+			       :PRODUCT-PATH))
 
 (defparameter *interval-keys* '(:ABS-MIN-AGE
-    :MIN-AGE
-    :EARLIEST-REC-AGE
-    :LATEST-REC-AGE
-    :MAX-AGE
-    :EFFECTIVE-DATE
-    :CESSATION-DATE
-    :BEGIN-AGE
-    :END-AGE
-    :ABS-MIN-INT
-    :MIN-INT
-    :EARLIEST-REC-INT
-    :LATEST-REC-INT
-    :MIN-AGE-TO-START
-    :MAX-AGE-TO-START))
+				:MIN-AGE
+				:EARLIEST-REC-AGE
+				:LATEST-REC-AGE
+				:MAX-AGE
+				:EFFECTIVE-DATE
+				:CESSATION-DATE
+				:BEGIN-AGE
+				:END-AGE
+				:ABS-MIN-INT
+				:MIN-INT
+				:EARLIEST-REC-INT
+				:LATEST-REC-INT
+				:MIN-AGE-TO-START
+				:MAX-AGE-TO-START))
 
 (defun with-plist-key (fn key)
   "Create a function that will apply the function (fn) to the value returned by (getf plist key)"
@@ -85,6 +86,9 @@
 (defun convert-all (thing)
   (convert-values #'parse:as-date *date-keys* thing)
   (convert-values #'parse:as-keyword *keyword-keys* thing)
+  (convert-values #'parse:as-gender *gender-keys* thing)
   (convert-values #'parse:as-number *number-keys* thing)
   (convert-values #'parse:as-interval *interval-keys* thing)
-  (convert-values #'parse:as-boolean *boolean-keys* thing))
+  (convert-values #'parse:as-boolean *boolean-keys* thing)
+  (convert-values (lambda (condition) (if (equal "" condition) nil condition)) '(:condition) thing)
+  (convert-values (lambda (genders) (mapcar #'parse:as-gender genders)) '(:required-gender) thing))

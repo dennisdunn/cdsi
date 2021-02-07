@@ -6,7 +6,8 @@
         #:cl-ppcre
         #:parse-float)
   (:export :as-date
-           :as-number
+   :as-number
+	   :as-gender
            :as-keyword
            :as-boolean
            :as-interval))
@@ -33,11 +34,17 @@
         #:cl-ppcre
         #:local-time)
   (:export :apply-intervals
-           :date+))
+   :date+
+	   :*min-date*
+   :*max-date*))
 
 (defpackage #:cl-cdsi
   (:nicknames #:cdsi)
   (:use #:cl
         #:cl-cdsi-date
         #:cl-cdsi-parse
-        #:cl-cdsi-client))
+        #:cl-cdsi-client)
+  (:export :organize-immunization-history
+   :select-relevant-patient-series
+	   :evaluate-conditional-skip
+   :evaluate-dose-administered-condition))

@@ -25,6 +25,11 @@
 (defun as-date (thing)
   (local-time:parse-timestring thing))
 
+(defun as-gender (thing)
+  (cond ((or (equal thing "f") (equal thing "F")) :FEMALE)
+	((or (equal thing "m") (equal thing "M")) :MALE)
+	(t (as-keyword thing))))
+
 (defun as-interval (str)
   "Parse a string of the form '12 days - 4 months' into a list of plists."
   (let ((tokens (ppcre:all-matches-as-strings
