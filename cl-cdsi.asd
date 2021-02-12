@@ -17,4 +17,21 @@
                (:file "parse")
                (:file "plist")
                (:file "date")
-               (:file "cdsi")))
+	       (:file "conditional-skip")
+               (:file "cdsi"))
+  :in-order-to ((test-op (test-op "cl-cdsi/tests"))))
+
+(asdf:defsystem #:cl-cdsi/tests
+   :description "SDLC testing for the cl-cdsi system."
+  :author "Dennis Dunn <ansofive@gmail.com>"
+  :license "MIT"
+  :version "0.0.1"
+  :depends-on (#:cl-cdsi
+	       #:fiveam)  
+  :components ((:module "tests"
+		:serial t
+		:components ((:file "package")
+			     (:file "main")
+			     (:file "conditional-skip"))))
+  :perform (test-op (o s)
+		    (uiop:symbol-call :fiveam :run! 'cl-cdsi-tests:all-tests)))

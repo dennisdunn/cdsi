@@ -6,8 +6,8 @@
 
 (in-package #:cl-cdsi-date)
 
-(defparameter *min-date* (local-time:encode-timestamp 0 0 0 0 1 1 1900))
-(defparameter *max-date* (local-time:encode-timestamp 0 0 0 0 31 12 2999))
+(defconstant *min-date* (local-time:encode-timestamp 0 0 0 0 1 1 1900))
+(defconstant *max-date* (local-time:encode-timestamp 0 0 0 0 31 12 2999))
 
 (defun apply-intervals (date intervals &optional default)
   (if (and (null intervals) (not (null default)))

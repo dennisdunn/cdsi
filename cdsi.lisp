@@ -5,7 +5,7 @@
 (defun organize-immunization-history (doses)
   "Logic Spec Section 4.2
 Take a list of vaccine administered doses and create an ordered list of antigen administered doses."
-  (stable-sort (client::convert-values #'parse:as-keyword '(:antigen) (mapcan #'split-dose doses)) #'string-lessp :key #'fourth))
+  (stable-sort (mapcan #'split-dose doses) #'string-lessp :key #'fourth))
 
 (defun select-relevant-patient-series (patient series)
   "Logic Spec Section 5.1
@@ -22,13 +22,10 @@ Return T iff this series is relevant for this assessment."
   "Logic Spec Section 6.1
 Return T iff this vaccine administered dose can be evaluated."
   (if (and (not (getf dose :condition))
-	   (local-time:timestamp< (getf dose :date-administered) (getf dose :lot-expiration date:*max-date*)))
+	   (local-time:timestamp< (getf dose :date-administered)
+				  (getf dose :lot-expiration date:*max-date*)))
       dose
       nil))
-
-(defun evaluate-conditional-skip (dose)
-  "Logic Spec Section 6.2"
-  dose)
 
 (defun required-gender-p (options gender)
   "Return T iff patient's gender is one of the required genders."
@@ -43,16 +40,12 @@ Return T iff this vaccine administered dose can be evaluated."
 		 (begin-age (date:apply-intervals dob (getf indication :begin-age) date:*min-date*))
 		 (end-age (date:apply-intervals dob (getf indication :end-age) date:*max-date*)))
 	    (and (member code (getf patient :observation-codes))
-		 (local-time:timestamp< begin-age (getf (getf patient :patient) :assessment-date) end-age))))
+		 (local-time:timestamp< begin-age (getf patient :assessment-date) end-age))))
 	indications))
-  
-(defun series-doses (doses)
-  "Make a list of doses for the patient series from the doses in the antigen series."
-  (mapcar (lambda (dose) (list :dose-number (getf dose :dose-number) :is-valid nil)) doses))
 
 (defun split-dose (dose)
   "Take a vaccine administered dose and create a list of antigen administered doses."
   (let* ((cvx (getf dose :cvx))
          (date (getf dose :date-administered))
-         (antigens (fetch "vaccines" cvx "antigens")))
+         (antigens (mapcar #'parse:as-keyword (client:fetch "vaccines" cvx "antigens"))))
     (mapcar (lambda (antigen) (list :date-administered date :antigen antigen)) antigens)))

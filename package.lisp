@@ -8,7 +8,7 @@
   (:export :as-date
    :as-number
 	   :as-gender
-           :as-keyword
+   :as-keyword
            :as-boolean
            :as-interval))
 
