@@ -1,5 +1,7 @@
 ;;;; conditional-skip tests
 
+(in-package #:cl-cdsi-tests)
+
 (def-suite conditional-skip
   :description "Tests the conditional-skip, section 6.2"
   :in all-tests)

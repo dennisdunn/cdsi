@@ -21,8 +21,9 @@
                (:file "cdsi"))
   :in-order-to ((test-op (test-op "cl-cdsi/tests"))))
 
+
 (asdf:defsystem #:cl-cdsi/tests
-   :description "SDLC testing for the cl-cdsi system."
+  :description "SDLC testing for the cl-cdsi system."
   :author "Dennis Dunn <ansofive@gmail.com>"
   :license "MIT"
   :version "0.0.1"

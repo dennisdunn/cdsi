@@ -3,7 +3,7 @@
 (defpackage #:cl-cdsi-tests
   (:nicknames #:tests)
   (:use #:cl
-	#:cl-cdsi
 	#:fiveam)
   (:export #:run!
-	   #:all-tests))
+	   #:all-tests
+	   #:test-cdsi))
