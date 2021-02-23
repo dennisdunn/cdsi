@@ -20,6 +20,8 @@
            :vals
            :plist-p
            :visit
+           :ppath
+           :getk
            :fetch
            :*base-url*
            :apply-intervals
