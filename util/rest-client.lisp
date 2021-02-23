@@ -1,13 +1,13 @@
 ;;;; Networking
 
-(in-package #:cl-cdsi-client)
+(in-package #:cl-cdsi-util)
 
 (defparameter *base-url* "https://cdsi-api.herokuapp.com/api")
 
 (defun fetch (&rest fragments)
   (let* ((path (format nil "~{~A~^/~}" (push *base-url* fragments)))
          (url (cl-ppcre:regex-replace-all " " path "%20"))
-         (yason:*parse-object-key-fn* #'parse:as-keyword)
+         (yason:*parse-object-key-fn* #'as-keyword)
          (stream (drakma:http-request url :want-stream t)))
     (setf (flexi-streams:flexi-stream-external-format stream) :utf-8)
     (convert-all (yason:parse stream :object-as :plist))))
@@ -78,8 +78,6 @@
 				:MIN-AGE-TO-START
 				:MAX-AGE-TO-START))
 
-(defparameter *vaccine-list-keys '(:VACCINE-TYPES))
-
 (defun with-plist-key (fn key)
   "Create a function that will apply the function (fn) to the value returned by (getf plist key)"
   (lambda (plist)
@@ -94,12 +92,12 @@
   thing)
 
 (defun convert-all (thing)
-  (convert-values #'parse:as-date *date-keys* thing)
-  (convert-values #'parse:as-keyword *keyword-keys* thing)
-  (convert-values #'parse:as-gender *gender-keys* thing)
-  (convert-values #'parse:as-number *number-keys* thing)
-  (convert-values #'parse:as-interval *interval-keys* thing)
-  (convert-values #'parse:as-boolean *boolean-keys* thing)
-  (convert-values (lambda (str) (mapcar #'parse:as-number (cl-ppcre:split ";" str))) '(:vaccine-types) thing)
+  (convert-values #'as-date *date-keys* thing)
+  (convert-values #'as-keyword *keyword-keys* thing)
+  (convert-values #'as-gender *gender-keys* thing)
+  (convert-values #'as-number *number-keys* thing)
+  (convert-values #'as-interval *interval-keys* thing)
+  (convert-values #'as-boolean *boolean-keys* thing)
+  (convert-values (lambda (str) (mapcar #'as-number (cl-ppcre:split ";" str))) '(:vaccine-types) thing)
   (convert-values (lambda (condition) (if (equal "" condition) nil condition)) '(:condition) thing)
-  (convert-values (lambda (genders) (mapcar #'parse:as-gender genders)) '(:required-gender) thing))
+  (convert-values (lambda (genders) (mapcar #'as-gender genders)) '(:required-gender) thing))

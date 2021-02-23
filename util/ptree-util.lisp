@@ -1,6 +1,6 @@
 ;;;; Property list tools
 
-(in-package #:cl-cdsi-plist)
+(in-package #:cl-cdsi-util)
 
 (defun keys (plist)
   (loop :for (a b) :on plist :by #'cddr

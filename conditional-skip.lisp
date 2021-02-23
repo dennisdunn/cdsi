@@ -33,8 +33,8 @@
 (defmacro condition-a (condition)
   `(lambda (medical)
      (let* ((dob (getf medical :dob))
-	    (begin (date:apply-intervals dob (getf ,condition :begin-age)))
-	    (end (date:apply-intervals dob (getf ,condition :end-age) date:*max-date*)))
+	    (begin (util:apply-intervals dob (getf ,condition :begin-age)))
+	    (end (util:apply-intervals dob (getf ,condition :end-age) util:*max-date*)))
        (local-time:timestamp<= begin  (getf medical :assessment-date) end))))
 
 (defun select (key place)

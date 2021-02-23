@@ -1,52 +1,37 @@
 ;;;; package.lisp
 
-(defpackage #:cl-cdsi-parse
-  (:nicknames #:parse)
+(defpackage #:cl-cdsi-util
+  (:nicknames #:util)
   (:use #:cl
+        #:kebab
+        #:yason
+        #:drakma
         #:cl-ppcre
+        #:local-time
         #:parse-float)
   (:export :as-date
-   :as-number
-	   :as-gender
-   :as-keyword
+           :as-number
+           :as-gender
+           :as-keyword
            :as-boolean
-   :as-interval
-   :as-number-list))
-
-(defpackage #:cl-cdsi-plist
-  (:nicknames #:plist)
-  (:use #:cl)
-  (:export :keys
+           :as-interval
+           :as-number-list
+           :keys
            :vals
            :plist-p
-           :visit))
-
-(defpackage #:cl-cdsi-client
-  (:nicknames #:client)
-  (:use #:cl
-        #:cl-cdsi-parse
-        #:cl-cdsi-plist)
-  (:export :fetch
-           :*base-url*))
-
-(defpackage #:cl-cdsi-date
-  (:nicknames #:date)
-  (:use #:cl
-        #:cl-ppcre
-        #:local-time)
-  (:export :apply-intervals
-   :date+
-	   :*min-date*
-   :*max-date*))
+           :visit
+           :fetch
+           :*base-url*
+           :apply-intervals
+           :date+
+           :*min-date*
+           :*max-date*))
 
 (defpackage #:cl-cdsi
   (:nicknames #:cdsi)
   (:use #:cl
-	#:local-time
-        #:cl-cdsi-date
-        #:cl-cdsi-parse
-        #:cl-cdsi-client)
+        #:cl-cdsi-util)
   (:export :organize-immunization-history
-   :select-relevant-patient-series
-	   :evaluate-conditional-skip
-   :evaluate-dose-administered-condition))
+           :select-relevant-patient-series
+           :evaluate-conditional-skip
+           :evaluate-dose-administered-condition))

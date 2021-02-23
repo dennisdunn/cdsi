@@ -23,7 +23,7 @@ Return T iff this series is relevant for this assessment."
 Return T iff this vaccine administered dose can be evaluated."
   (if (and (not (getf dose :condition))
 	   (local-time:timestamp< (getf dose :date-administered)
-				  (getf dose :lot-expiration date:*max-date*)))
+				  (getf dose :lot-expiration util:*max-date*)))
       dose
       nil))
 
@@ -37,8 +37,8 @@ Return T iff this vaccine administered dose can be evaluated."
   (some (lambda (indication)
 	  (let* ((code (getf (getf indication :observation-code) :code))
 		 (dob (getf patient :dob))
-		 (begin-age (date:apply-intervals dob (getf indication :begin-age) date:*min-date*))
-		 (end-age (date:apply-intervals dob (getf indication :end-age) date:*max-date*)))
+		 (begin-age (util:apply-intervals dob (getf indication :begin-age) util:*min-date*))
+		 (end-age (util:apply-intervals dob (getf indication :end-age) util:*max-date*)))
 	    (and (member code (getf patient :observation-codes))
 		 (local-time:timestamp< begin-age (getf patient :assessment-date) end-age))))
 	indications))
@@ -47,5 +47,5 @@ Return T iff this vaccine administered dose can be evaluated."
   "Take a vaccine administered dose and create a list of antigen administered doses."
   (let* ((cvx (getf dose :cvx))
          (date (getf dose :date-administered))
-         (antigens (mapcar #'parse:as-keyword (client:fetch "vaccines" cvx "antigens"))))
+         (antigens (mapcar #'util:as-keyword (util:fetch "vaccines" cvx "antigens"))))
     (mapcar (lambda (antigen) (list :date-administered date :antigen antigen)) antigens)))

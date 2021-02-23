@@ -13,13 +13,15 @@
                #:parse-float)
   :serial t
   :components ((:file "package")
-               (:file "client")
-               (:file "parse")
-               (:file "plist")
-               (:file "date")
-	       (:file "conditional-skip")
+               (:module "util"
+                  :serial t
+                  :components ((:file "parse")
+                               (:file "date-math")
+                               (:file "ptree-util")
+                               (:file "rest-client")))
+               (:file "conditional-skip")
                (:file "cdsi")))
- ; :in-order-to ((test-op (test-op "cl-cdsi/tests"))))
+; :in-order-to ((test-op (test-op "cl-cdsi/tests"))))
 
 
 (asdf:defsystem #:cl-cdsi/tests
@@ -28,11 +30,11 @@
   :license "MIT"
   :version "0.0.1"
   :depends-on (#:cl-cdsi
-	       #:fiveam)  
+               #:fiveam)
   :components ((:module "tests"
-		:serial t
-		:components ((:file "package")
-			     (:file "main")
-			     (:file "conditional-skip")))))
+                  :serial t
+                  :components ((:file "package")
+                               (:file "main")
+                               (:file "conditional-skip")))))
 ; :perform (test-op (o s)
 ;		    (uiop:symbol-call :fiveam :run! 'cl-cdsi-tests:all-tests)))

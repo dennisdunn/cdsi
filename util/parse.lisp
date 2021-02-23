@@ -2,7 +2,7 @@
 ;;;;
 ;;;; The various parsers return nil if the string doesn't parse.
 
-(in-package #:cl-cdsi-parse)
+(in-package #:cl-cdsi-util)
 
 (defparameter *interval-re* "[a-zA-Z]+|[-+]?\\d+")
 (defparameter *invalid-chars* "[sS\\s]")
