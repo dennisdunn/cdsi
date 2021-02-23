@@ -33,7 +33,12 @@
 			       :TARGET-DISEASE
 			       :SERIES-TYPE
 			       :SERIES-PRIORITY
-			       :SERIES-GROUP-NAME))
+			       :SERIES-GROUP-NAME
+			       :CONDITION-TYPE
+			       :DOSE-TYPE
+			       :SET-LOGIC
+			       :CONTEXT
+			       :DOSE-COUNT-LOGIC))
 
 (defparameter *number-keys* '(:CVX
 			      :GUIDELINE-CODE
@@ -46,6 +51,9 @@
 			      :EQUIVALENT-SERIES-GROUPS
 			      :OBSERVATION-CODE
 			      :VOLUME
+			      :DOSE-COUNT
+			      :CONDITION-ID
+			      :SET-ID
 			      :CHANGED-IN-VERSION))
 
 (defparameter *boolean-keys* '(:RECURRING-DOSE
@@ -70,6 +78,8 @@
 				:MIN-AGE-TO-START
 				:MAX-AGE-TO-START))
 
+(defparameter *vaccine-list-keys '(:VACCINE-TYPES))
+
 (defun with-plist-key (fn key)
   "Create a function that will apply the function (fn) to the value returned by (getf plist key)"
   (lambda (plist)
@@ -90,5 +100,6 @@
   (convert-values #'parse:as-number *number-keys* thing)
   (convert-values #'parse:as-interval *interval-keys* thing)
   (convert-values #'parse:as-boolean *boolean-keys* thing)
+  (convert-values (lambda (str) (mapcar #'parse:as-number (cl-ppcre:split ";" str))) '(:vaccine-types) thing)
   (convert-values (lambda (condition) (if (equal "" condition) nil condition)) '(:condition) thing)
   (convert-values (lambda (genders) (mapcar #'parse:as-gender genders)) '(:required-gender) thing))

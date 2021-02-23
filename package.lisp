@@ -10,7 +10,8 @@
 	   :as-gender
    :as-keyword
            :as-boolean
-           :as-interval))
+   :as-interval
+   :as-number-list))
 
 (defpackage #:cl-cdsi-plist
   (:nicknames #:plist)
@@ -41,6 +42,7 @@
 (defpackage #:cl-cdsi
   (:nicknames #:cdsi)
   (:use #:cl
+	#:local-time
         #:cl-cdsi-date
         #:cl-cdsi-parse
         #:cl-cdsi-client)

@@ -3,21 +3,41 @@
 
 (in-package :cl-cdsi)
 
-(defun evaluate-conditional-skip (conf dose)
-  "Logic Spec Section 6.2"
-  dose)
+(defmacro with-logic (logic args)
+  (case logic
+    ((:and) `(and ,@args))
+    ((:or) `(or ,@args))
+    ((:greater-than) `(> ,@args))
+    ((:less-than) `(< ,@args))
+    ((:equal) `(equal ,@args))	 
+    ((t nil))))
 
-;(defun evaluate-conditional-skip-sets (conf dose)
-  ;"Logic Spec Table 6-11"
- ; (cond ((eq conf :and) (every (evaluate-conditional-skip-set conf dose)))
-;	((eq conf :or) (some (evaluate-conditonal-skip-set conf dose)))))
+(defun get-skip-condition-sets (dose context)
+  "Returns the relevant skip conditions from the target dose for the specified context. eg: :evaluation or :forecast"
+  (flet ((not-skip-p (condition)
+	   (let ((ctx (getf condition :context)))
+	     (or (eq ctx context)
+		 (eq ctx :both)))))
+	 (remove-if-not #'not-skip-p (getf dose :conditional-skip))))
 
-;(defun evaluate-conditional-skip-set (conf dose)
-;  t)
 
-;(defun type-of-age (dob assessment-date dose)
-  "Logic Spec Table 6-6"
- " Is the Conditional Skip End Age Date > Conditional Skip Reference Date
-  ≥ Conditional Skip Begin Age Date?
-  Use the pertusus standared series for testing."
-;  t)
+(defmacro make-condition-evaluator (condition)
+  (case (getf condition :condition-type)
+    ((:age) (condition-a condition))
+    ((:interval) (condtion-i condition))
+    ((:completed-series) (condition-cs condition))
+    ((:vaccine-count-by-age) (condition-vcba condition))
+    ((:vaccine-count-by-date) (condition-vcbd condition))
+    (t (error "unknown conditional skip condition type"))))
+
+(defmacro condition-a (condition)
+  `(lambda (medical)
+     (let* ((dob (getf medical :dob))
+	    (begin (date:apply-intervals dob (getf ,condition :begin-age)))
+	    (end (date:apply-intervals dob (getf ,condition :end-age) date:*max-date*)))
+       (local-time:timestamp<= begin  (getf medical :assessment-date) end))))
+
+(defun select (key place)
+  (cond ((symbolp key) (getf place key))
+	((numberp key) (nth key place))
+	(t (error "unknown-key-type"))))

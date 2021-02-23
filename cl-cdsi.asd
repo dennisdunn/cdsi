@@ -18,8 +18,8 @@
                (:file "plist")
                (:file "date")
 	       (:file "conditional-skip")
-               (:file "cdsi"))
-  :in-order-to ((test-op (test-op "cl-cdsi/tests"))))
+               (:file "cdsi")))
+ ; :in-order-to ((test-op (test-op "cl-cdsi/tests"))))
 
 
 (asdf:defsystem #:cl-cdsi/tests
@@ -33,6 +33,6 @@
 		:serial t
 		:components ((:file "package")
 			     (:file "main")
-			     (:file "conditional-skip"))))
-  :perform (test-op (o s)
-		    (uiop:symbol-call :fiveam :run! 'cl-cdsi-tests:all-tests)))
+			     (:file "conditional-skip")))))
+; :perform (test-op (o s)
+;		    (uiop:symbol-call :fiveam :run! 'cl-cdsi-tests:all-tests)))

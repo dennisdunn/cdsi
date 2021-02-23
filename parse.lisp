@@ -39,3 +39,6 @@
           :while b
           :collect (list :amount (as-number a)
                          :unit (as-keyword b)))))
+
+(defun as-number-list (str)
+  (mapcar #'as-number (cl-ppcre:split ";" str)))
