@@ -1,17 +1,46 @@
 ;;;; geometry.lisp
 
+(defpackage :com.ansodesigns.cl-geometry
+  (:nicknames :geometry :geom)
+  (:use :cl))
+
+(in-package :geometry)
+
+
+;;;; classes
+
+(defclass point ()
+  ((x :initarg :x
+      :initform 0
+      :reader x)
+   (y :initarg :y
+      :initform 0
+      :reader y)))
+
+(defclass vector (point)
+  ())
+
+(defclass line ()
+  ((a :initarg :a
+      :initform (make-instance 'point)
+      :accessor a)
+   (b :initform :b
+      :initform (make-instance 'point)
+      :accessor b)))
+
+
 ;;; vector operations
 ;;; vectors are of the form  (delta-x delta-y) or (delta-x . delta-y)
 
-(defparameter *zero-vector* '(0 . 0))
+(defparameter *zero-vector* (make-instance 'vector))
 
 (defun dot (a b)
   "dot product"
-  (+ (*  (car a) (car b)) (* (cdr a) (cdr b))))
+  (+ (*  (x a) (x b)) (* (y a) (y b))))
 
 (defun sum (a b)
   "sum of vectors"
-  (list (+ (car a) (car b)) (+ (cdr a) (cdr b))))
+  (make-instance 'vector :x (+ (x a) (x b)) :y (+ (y a) (y b))))
 
 (defun reverse-vector (a)
   "reverse the direction of the vector"
