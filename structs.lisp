@@ -1,5 +1,15 @@
 
-(in-package #:cl-cdsi)
+(in-package :cl-cdsi)
+
+(defstruct series 
+  series-name
+  target-disease
+  vaccine-group
+  series-admin-guidance
+  series-type
+  equivalent-series-groups
+  required-gender
+  doses)
 
 (defstruct administered-dose
   cvx
@@ -17,4 +27,3 @@
   med-history-code-sys
   med-history-text
   observation-codes)
-

@@ -4,10 +4,10 @@
 ;;;; on top of the local-time process (jump-to-last-day-of-current-month) is a matter
 ;;;; of checking two conditons and adjusting accordingly.
 
-(in-package #:cl-cdsi-util)
+(in-package :cdsi-date)
 
-(defparameter *min-date* (local-time:encode-timestamp 0 0 0 0 1 1 1900))
-(defparameter *max-date* (local-time:encode-timestamp 0 0 0 0 31 12 2999))
+(defparameter *min-date* (encode-timestamp 0 0 0 0 1 1 1900))
+(defparameter *max-date* (encode-timestamp 0 0 0 0 31 12 2999))
 
 (defun apply-intervals (date intervals &optional default)
   (if (and (null intervals) (not (null default)))
