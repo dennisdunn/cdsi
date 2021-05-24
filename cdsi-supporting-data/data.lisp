@@ -1,4 +1,3 @@
-;;;; data.lisp
 
 (in-package :cdsi-supporting-data)
 
@@ -8,7 +7,7 @@
 
 (defparameter *antigen-file-re* "AntigenSupportingData- (.*)-508.xml")
 
-(defun antigen-list ()
+(defun antigen-names ()
   "Return a list of antigen names."
   (remove-if #'null 
              (mapcar (lambda (fname)

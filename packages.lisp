@@ -27,9 +27,17 @@
   (:import-from :xmls
                 :parse))
 
+(defpackage :cdsi-testcases
+  (:nicknames :testcases)
+  (:use :cl)
+  (:import-from :cl-csv
+                :read-csv)
+  (:import-from :kebab
+                :to-kebab-case))
 
 (defpackage :cl-cdsi
   (:nicknames :cdsi)
   (:use :cl
         :cdsi-date
-        :cdsi-supporting-data))
+        :cdsi-supporting-data
+        :cdsi-testcases))
