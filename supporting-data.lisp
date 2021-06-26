@@ -11,27 +11,27 @@
   (remove-if #'null 
              (mapcar (lambda (fname)
                        (ppcre:register-groups-bind (antigen)
-                                             (*antigen-file-re* (namestring fname))
-                                             antigen))
+                                                   (*antigen-file-re* (namestring fname))
+                                                   antigen))
                      (uiop:directory-files *data-files-location*))))
 
 
 (defun read-antigen (name)
   "Load and parse the antigen file identified by the name."
- (let* ((fname (ppcre:regex-replace "[(.*)]+" *antigen-file-re* name))
-        (path (merge-pathnames *data-files-location* fname)))
-   (xmls:parse (uiop:read-file-string path))))
+  (let* ((fname (ppcre:regex-replace "[(.*)]+" *antigen-file-re* name))
+         (path (merge-pathnames *data-files-location* fname)))
+    (xmls:parse (uiop:read-file-string path))))
 
 ;;; Exported functions
 
 (defun antigen-keys ()
-    "Get the antigen names as keyword symbols."
-    (mapcar #'util:name->keyword (antigen-names)))
+  "Get the antigen names as keyword symbols."
+  (mapcar #'util:name->keyword (antigen-names)))
 
 (defun get-antigen (key)
-    "Get the xml associated with this keyword symbol."
-    (let ((name (getf (symbol-plist key) :name)))
-        (read-antigen name)))
+  "Get the xml associated with this keyword symbol."
+  (let ((name (getf (symbol-plist key) :name)))
+    (read-antigen name)))
 
 (defun get-series (antigen)
   "Get the series' associated with this antigen."
@@ -44,7 +44,9 @@
 (defun series-required-genders (series)
   "Get the required genders of the series."
   (remove-if #'null
-  (mapcar #'util:name->keyword (mapcar (lambda (x) (xmls:xmlrep-string-child x nil)) (xmls:xmlrep-find-child-tags 'requiredgender series)))))
+             (mapcar #'util:name->keyword 
+                     (mapcar (lambda (x) (xmls:xmlrep-string-child x nil)) 
+                             (xmls:xmlrep-find-child-tags 'requiredgender series)))))
 
 (defun get-schedule ()
   "Get the schedule supporting data."

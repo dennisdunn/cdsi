@@ -1,21 +1,21 @@
 ;;;; packages.lisp
 (defpackage :util
-            (:use :cl
-                  :kebab)
-            (:export :name->keyword))
+  (:use :cl
+        :kebab)
+  (:export :name->keyword))
 
 (defpackage :date-math
   (:nicknames :dates)
   (:use :cl
-  :local-time)
+        :local-time)
   (:export :apply-intervals))
 
 (defpackage :supporting-data
   (:nicknames :support)
   (:use :cl
-	:xmls
-    :util
-	:cl-ppcre)
+        :xmls
+        :util
+        :cl-ppcre)
   (:export :antigen-keys
            :get-antigen
            :get-series
@@ -25,8 +25,8 @@
 
 (defpackage :testcases
   (:use :cl
-  :kebab
-  :cl-csv))
+        :kebab
+        :cl-csv))
 
 (defpackage :cl-cdsi
   (:nicknames :cdsi)
