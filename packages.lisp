@@ -1,43 +1,35 @@
 ;;;; packages.lisp
+(defpackage :util
+            (:use :cl
+                  :kebab)
+            (:export :name->keyword))
 
-(defpackage :cdsi-date
+(defpackage :date-math
   (:nicknames :dates)
-  (:use :cl)
-  (:import-from :local-time
-                :encode-timestamp
-                :adjust-timestamp
-                :timestamp-day
-                :timestamp-month
-                :timestamp-year
-                :days-in-month)
+  (:use :cl
+  :local-time)
   (:export :apply-intervals))
 
-(defpackage :cdsi-supporting-data
-  (:nicknames :suport)
-  (:use :cl)
-  (:import-from :cl-ppcre
-                :regex-replace-all
-                :scan
-                :all-matches-as-strings
-                :split
-                :register-groups-bind
-                :regex-replace)
-  (:import-from :kebab
-                :to-kebab-case)
-  (:import-from :xmls
-                :parse))
+(defpackage :supporting-data
+  (:nicknames :support)
+  (:use :cl
+	:xmls
+    :util
+	:cl-ppcre)
+  (:export :antigen-keys
+           :get-antigen
+           :get-series
+           :get-schedule
+           :series-standard-p
+           :series-required-genders))
 
-(defpackage :cdsi-testcases
-  (:nicknames :testcases)
-  (:use :cl)
-  (:import-from :cl-csv
-                :read-csv)
-  (:import-from :kebab
-                :to-kebab-case))
+(defpackage :testcases
+  (:use :cl
+  :kebab
+  :cl-csv))
 
 (defpackage :cl-cdsi
   (:nicknames :cdsi)
   (:use :cl
-        :cdsi-date
-        :cdsi-supporting-data
-        :cdsi-testcases))
+        :date-math
+        :supporting-data))

@@ -1,4 +1,4 @@
-(in-package :cdsi-testcases)
+(in-package :testcases)
 
 (defparameter *data-files-location* #P"/home/owner/source/cdsi/cl-cdsi/data-files/testcases/")
 (defparameter *fname* #P"cdsi-healthy-childhood-and-adult-test-cases-v4.8.csv")
@@ -7,7 +7,7 @@
   (intern (string-upcase (format nil "~{~a~}" parts))))
  
 (defun get-data ()
-  (let* ((data (read-csv (merge-pathnames *data-files-location* *fname* ) 
+  (let* ((data (cl-csv:read-csv (merge-pathnames *data-files-location* *fname* )
                          :unquoted-empty-string-is-nil t
                          :trim-outer-whitespace t))
          (headers (car data))

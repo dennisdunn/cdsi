@@ -6,24 +6,14 @@
  :license "MIT"
  :version "0.1.0"
  :serial t
- :depends-on (:xmls
-     :cl-ppcre
-     :local-time
-     :kebab
-     :xlsx)
+ :depends-on (:local-time
+	      :cl-ppcre
+	      :cl-csv
+	      :kebab
+	      :xlsx
+	      :xmls)
  :components ((:file "packages")
-     (:module "cdsi-date"
-      :depends-on ("packages")
-      :serial t
-      :components ((:file "date-math")))
-     (:module "cdsi-supporting-data"
-      :depends-on ("packages")
-      :serial t
-      :components ((:file "data")
-                    (:file "parse")))
-     (:module "cdsi-testcases"
-      :depends-on ("packages")
-      :serial t
-      :components ((:file "cases")))
-                    (:file "cdsi" :depends-on ("cdsi-date" "cdsi-supporting-data"))
-                    (:file "structs")))
+ (:file "util")
+ (:file "date-math")
+ (:file "supporting-data")
+ (:file "testcases")))
