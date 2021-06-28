@@ -79,7 +79,9 @@
 (defpackage :testcases
   (:use :cl
         :util
-        :structs))
+        :structs)
+  (:export :get-testcase
+           :get-assessment))
 
 (defpackage :cl-cdsi
   (:nicknames :cdsi)
