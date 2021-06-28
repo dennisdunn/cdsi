@@ -1,29 +1,41 @@
 
-(in-package :cl-cdsi)
-
-(defstruct series 
-  series-name
-  target-disease
-  vaccine-group
-  series-admin-guidance
-  series-type
-  equivalent-series-groups
-  required-gender
-  doses)
-
-(defstruct administered-dose
-  cvx
-  mvx
-  vaccine-name
-  lot-expiration
-  condition
-  date-administered)
+(in-package :structs)
 
 (defstruct patient
-  assessment-date
   dob
   gender
-  med-history-code
-  med-history-code-sys
-  med-history-text
   observation-codes)
+
+(defstruct assessment
+  date
+  patient
+  history)
+
+(defstruct vaccine-dose
+  date
+  name 
+  cvx 
+  mvx 
+  evaluation-status
+  evaluation-reason)
+
+
+(defstruct testcase
+  id
+  name
+  description
+  series-status
+  assessment-date
+  patient
+  vaccine-history
+  forecast-num
+  earliest-date
+  recommended-date
+  past-due-date
+  vaccine-group
+  evaluation-test-type
+  forecast-test-type
+  date-added
+  date-updated
+  reason-for-change
+  changed-in-version)

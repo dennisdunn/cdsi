@@ -24,6 +24,8 @@
 
 ;;; Exported functions
 
+;; Antigen
+
 (defun antigen-keys ()
   "Get the antigen names as keyword symbols."
   (mapcar #'util:name->keyword (antigen-names)))
@@ -33,13 +35,19 @@
   (let ((name (getf (symbol-plist key) :name)))
     (read-antigen name)))
 
-(defun get-series (antigen)
+(defun antigen-series (antigen)
   "Get the series' associated with this antigen."
   (xmls:xmlrep-find-child-tags 'series antigen))
 
-(defun series-standard-p (series)
-  "Returns T if this is a standard series or nil for a risk series."
-  (equal "Standard" (xmls:xmlrep-string-child (xmls:xmlrep-find-child-tag 'seriestype series))))
+;; Series
+
+(defun series-type (series)
+  "Return the series type of the series. :STANDARD or :RISK"
+  (util:name->keyword (xmls:xmlrep-string-child (xmls:xmlrep-find-child-tag 'seriestype series) "risk")))
+
+(defun series-indications (series)
+  "Get the indications associated with this series."
+  (xmls:xmlrep-find-child-tags 'indication series))  
 
 (defun series-required-genders (series)
   "Get the required genders of the series."
@@ -48,6 +56,11 @@
                      (mapcar (lambda (x) (xmls:xmlrep-string-child x nil)) 
                              (xmls:xmlrep-find-child-tags 'requiredgender series)))))
 
+;; Schedule
+
 (defun get-schedule ()
   "Get the schedule supporting data."
   (xmls:parse (uiop:read-file-string (merge-pathnames *data-files-location* *schedule-fname*))))
+
+
+

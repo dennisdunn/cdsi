@@ -9,18 +9,42 @@
 (defparameter *min-date* (local-time:encode-timestamp 0 0 0 0 1 1 1900))
 (defparameter *max-date* (local-time:encode-timestamp 0 0 0 0 31 12 2999))
 
-(defun apply-intervals (date intervals &optional default)
-  (if (and (null intervals) (not (null default)))
-      default
-      (reduce #'date+ intervals :initial-value date)))
+(defun parse-intervals (str)
+  "Return a list of intervals parsed from the string."
+  (let ((str2 (ppcre:regex-replace-all "\\s+" str ""))
+        result)
+    (ppcre:do-register-groups ((#'parse-integer value) (#'util:name->keyword unit))
+                              ("([+-]?\\d+)(\\w+)" str2)
+                              (push `(:amount ,value :unit ,unit) result))
+    (nreverse result)))
+
+(defun adjust (date intervals &optional (default nil default-supplied-p))
+  "Apply all of the intervals to the date."
+  (cond ((and (null intervals) (eq default :min)) *min-date*)
+        ((and (null intervals) (eq default :max)) *max-date*)
+        ((and (null intervals) default-supplied-p) default)
+        (t (reduce #'date+ intervals :initial-value date))))
 
 (defun date+ (date interval)
+  "Add the interval to the date."
   (let ((amount (getf interval :amount))
         (unit (getf interval :unit)))
-    (cond ((eq unit :year) (add-years date amount))
-          ((eq unit :month) (add-months date amount))
-          ((eq unit :week) (add-days date (* amount 7)))
+    (cond ((year-p unit) (add-years date amount))
+          ((month-p unit) (add-months date amount))
+          ((week-p unit) (add-days date (* amount 7)))
           (t (add-days date amount)))))
+
+(defun year-p (unit)
+  (or (eq unit :year) (eq unit :years)))
+
+(defun month-p (unit)
+  (or (eq unit :month) (eq unit :months)))
+
+(defun week-p (unit)
+  (or (eq unit :week) (eq unit :weeks)))
+
+(defun day-p (unit)
+  (or (eq unit :day) (eq unit :days)))
 
 (defun add-days (date amount)
   (local-time:adjust-timestamp date (offset :day amount)))

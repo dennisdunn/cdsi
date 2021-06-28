@@ -13,7 +13,9 @@
      :xlsx
      :xmls)
  :components ((:file "packages")
-     (:file "util")
-     (:file "date-math")
-     (:file "supporting-data")
-     (:file "testcases")))
+	      (:file "structs")
+	      (:file "util")
+	      (:file "date-math")
+	      (:file "supporting-data")
+	      (:file "select-patient-series")
+	      (:file "testcases")))
