@@ -1,3 +1,6 @@
+
+*.FASL
+*.fasl
 *~
-*fasl
-*swp
+*.sw?
+.vscode/

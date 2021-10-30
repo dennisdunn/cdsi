@@ -1,5 +1,5 @@
 
-(in-package :structs)
+(in-package :cl-cdsi/support)
 
 (defstruct patient
   dob

@@ -4,16 +4,28 @@
 ;;;; on top of the local-time process (jump-to-last-day-of-current-month) is a matter
 ;;;; of checking two conditons and adjusting accordingly.
 
-(in-package :date-math)
+(in-package :cl-cdsi/util)
 
 (defparameter *min-date* (local-time:encode-timestamp 0 0 0 0 1 1 1900))
 (defparameter *max-date* (local-time:encode-timestamp 0 0 0 0 31 12 2999))
 
-(defun parse-intervals (str)
+(defun parse-and-adjust (intervalstring datestring)
+  "Parse the intervals string and apply the results to the parsed date string."
+  (let ((intervals (parse-intervals intervalstring))
+	(date (parse-date datestring)))
+    (adjust date intervals)))
+
+(defun parse-date (datestring)
+  "Parse a date of the form 'MM/DD/YYYY'"
+  (let* ((parts (ppcre:split "/" datestring))
+	 (date-parts (mapcar #'parse-integer parts)))
+    (local-time:encode-timestamp 0 0 0 0 (second date-parts) (first date-parts) (third date-parts))))
+  
+(defun parse-intervals (intervalstring)
   "Return a list of intervals parsed from the string."
-  (let ((str2 (ppcre:regex-replace-all "\\s+" str ""))
+  (let ((str2 (ppcre:regex-replace-all "\\s+" intervalstring ""))
         result)
-    (ppcre:do-register-groups ((#'parse-integer value) (#'util:name->keyword unit))
+    (ppcre:do-register-groups ((#'parse-integer value) (#'name->keyword unit))
                               ("([+-]?\\d+)(\\w+)" str2)
                               (push `(:amount ,value :unit ,unit) result))
     (nreverse result)))

@@ -1,6 +1,6 @@
-(in-package :supporting-data)
+(in-package :cl-cdsi/support)
 
-(defparameter *data-files-location* #P"/home/owner/source/cdsi/cl-cdsi/data-files/supporting-data/4.10/")
+(defparameter *data-files-location* #P"/home/dennisd/source/cdsi/cl-cdsi/data-files/supporting-data/4.10/")
 
 (defparameter *schedule-fname* #P"ScheduleSupportingData.xml")
 
@@ -26,14 +26,14 @@
 
 ;; Antigen
 
-(defun antigen-keys ()
-  "Get the antigen names as keyword symbols."
-  (mapcar #'util:name->keyword (antigen-names)))
-
-(defun get-antigen (key)
+(defun antigen (key)
   "Get the xml associated with this keyword symbol."
   (let ((name (getf (symbol-plist key) :name)))
     (read-antigen name)))
+
+(defun antigen-keys ()
+  "Get the antigen names as keyword symbols."
+  (mapcar #'name->keyword (antigen-names)))
 
 (defun antigen-series (antigen)
   "Get the series' associated with this antigen."
@@ -43,7 +43,7 @@
 
 (defun series-type (series)
   "Return the series type of the series. :STANDARD or :RISK"
-  (util:name->keyword (xmls:xmlrep-string-child (xmls:xmlrep-find-child-tag 'seriestype series) "risk")))
+  (name->keyword (xmls:xmlrep-string-child (xmls:xmlrep-find-child-tag 'seriestype series) "risk")))
 
 (defun series-indications (series)
   "Get the indications associated with this series."
@@ -52,15 +52,13 @@
 (defun series-required-genders (series)
   "Get the required genders of the series."
   (remove-if #'null
-             (mapcar #'util:name->keyword 
+             (mapcar #'name->keyword 
                      (mapcar (lambda (x) (xmls:xmlrep-string-child x nil)) 
                              (xmls:xmlrep-find-child-tags 'requiredgender series)))))
 
-;; Schedule
+;; Indication
 
-(defun get-schedule ()
-  "Get the schedule supporting data."
-  (xmls:parse (uiop:read-file-string (merge-pathnames *data-files-location* *schedule-fname*))))
-
-
+(defun indication-interval (tag indication)
+  "Get the begin age as a parsed list of intervals."
+  (parse-intervals (xmls:xmlrep-string-child tag indication)))
 

@@ -1,4 +1,4 @@
-(in-package :util)
+(in-package :cl-cdsi/util)
 
 (defun name->keyword (name)
   "Create a kebab-cased symbol in the KEYWORD package. The name argument is stored on the plist."
@@ -11,7 +11,3 @@
 (defun node->string (name source)
   "Get the named node from the source as a string."
   (xmls:xmlrep-string-child (xmls:xmlrep-find-child-tag source name) nil))
-
-(defun node->intervals (name source)
-  "Get the named node from the source and parse it into date-math intervals."
-  (parse-intervals (node->string (name source))))
