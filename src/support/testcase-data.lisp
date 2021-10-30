@@ -1,10 +1,5 @@
 (in-package :cl-cdsi/support)
 
-(defparameter *data-files-location* #P"/home/dennisd/source/cdsi/cl-cdsi/data-files/testcases/")
-(defparameter *fname* #P"cdsi-healthy-childhood-and-adult-test-cases-v4.8.csv")
-(defparameter *headers* nil)
-(defparameter *testcases* nil)
-
 (defun testcase (id)
   "Return the testcase identified by the string id."
   (find-if #'(lambda (x) (equal id (testcase-id x))) *testcases*))
@@ -18,15 +13,14 @@
 
 (defun read-testcases ()
   "Read the testcase file and return a list of testcases."
-  (let ((filepath (merge-pathnames *data-files-location* *fname*)))
-    (cl-csv:read-csv filepath :unquoted-empty-string-is-nil t
+  (let ((filepath (merge-pathnames *testcase-data-location* *testcase-file-name*)))
+    (cdr (cl-csv:read-csv filepath :unquoted-empty-string-is-nil t
                      :trim-outer-whitespace t
-                     :skip-first-p t
-                     :map-fn #'row->testcase)))
+                     :map-fn #'row->testcase))))
 
 (defun read-headers ()
   "Read the first line of the testcase file and return an alist mapping column name to column number."
-  (let* ((filepath (merge-pathnames *data-files-location* *fname*))
+  (let* ((filepath (merge-pathnames *testcase-data-location* *testcase-file-name*))
          (row (cl-csv:read-csv-row filepath)))
     (loop for key in row
           for i from 0
@@ -45,13 +39,13 @@
 (defun row->testcase (row)
   "Create a testcase struct from the given row."
   (make-testcase :id (row-value :cdc-test-id row)
-                 :name (row-value :testcase-name row)
+                 :name (row-value :test-case-name row)
                  :description (row-value :general-description row)
                  :patient (row->patient row)
                  :vaccine-history (row->doses row)
                  :assessment-date (row-value :assessment-date row)
                  :series-status (u:name->keyword (row-value :series-status row))
-                 :forecast-num (row-value :forecast-num row)
+                 :forecast-num (row-value :forecast-# row)
                  :earliest-date (row-value :earliest-date row)
                  :recommended-date (row-value :recommended-date row)
                  :past-due-date (row-value :past-due-date row)
@@ -81,3 +75,4 @@
 
 (setf *headers* (read-headers))
 (setf *testcases* (read-testcases))
+

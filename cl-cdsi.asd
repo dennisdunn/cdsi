@@ -22,6 +22,7 @@
                                               (:module "support"
                                                        :serial t
                                                        :components ((:file "package")
+                                                                    (:file "params")
                                                                     (:file "structs")
                                                                     (:file "testcase-data")
                                                                     (:file "schedule-data")
@@ -40,5 +41,7 @@
            :components ((:module "t"
                                  :serial t
                                  :components ((:file "package")
-                                              (:file "main")))))
+                                              (:file "main")
+                                              (:file "support")
+                                              (:file "date-time")))))
 

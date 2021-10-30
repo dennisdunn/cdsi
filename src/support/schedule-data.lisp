@@ -4,4 +4,4 @@
 
 (defun schedule ()
   "Get the schedule supporting data."
-  (xmls:parse (uiop:read-file-string (merge-pathnames *data-files-location* *schedule-fname*))))
+  (xmls:parse (uiop:read-file-string (merge-pathnames *schedule-data-location* *schedule-file-name*))))

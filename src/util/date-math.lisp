@@ -19,7 +19,7 @@
   "Parse a date of the form 'MM/DD/YYYY'"
   (let* ((parts (ppcre:split "/" datestring))
 	 (date-parts (mapcar #'parse-integer parts)))
-    (local-time:encode-timestamp 0 0 0 0 (second date-parts) (first date-parts) (third date-parts))))
+    (local-time:encode-timestamp 0 0 0 0 (second date-parts) (first date-parts) (third date-parts) :offset 0)))
   
 (defun parse-intervals (intervalstring)
   "Return a list of intervals parsed from the string."
