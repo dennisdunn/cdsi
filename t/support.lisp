@@ -1,5 +1,3 @@
-;;;; Tests of the date/time manipulation funcitons.
-
 (in-package #:cl-cdsi/tests)
 
 (def-suite support-tests
