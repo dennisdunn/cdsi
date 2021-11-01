@@ -6,13 +6,6 @@
 
 (in-suite date-time-tests)
 
-(defun list-equal (a b)
-  "Return T iff both lists have the same element in the corresponding position."
-  (reduce #'eq (mapcar (lambda (item1 item2)
-                         (if (and (listp item1) (listp item2))
-                           (list-equal item1 item2)
-                           (equal a b))) a b) :initial-value t))
-
 (defun parse (datestring)
   "Parses the datestring into a timestamp in the default timezone"
   (let ((offset (cl-cdsi/util::get-tz-offset)))
@@ -26,9 +19,9 @@
       (is (local-time:timestamp= (cl-cdsi/util:parse-date "6/30/2020") (parse "2020-06-30"))))
 
 (test parse-interval-strings
-      (is (list-equal (cl-cdsi/util:parse-intervals "65 years") '((:amount 65 :unit :year))))
-      (is (list-equal (cl-cdsi/util:parse-intervals "18 years - 4 days") '((:amount 18 :unit :year) (:amount -4 :unit :day))))
-      (is (list-equal (cl-cdsi/util:parse-intervals "18years-4days") '((:amount 18 :unit :year) (:amount -4 :unit :day)))))
+      (is (equal (cl-cdsi/util:parse-intervals "65 years") '((:amount 65 :unit :year))))
+      (is (equal (cl-cdsi/util:parse-intervals "18 years - 4 days") '((:amount 18 :unit :year) (:amount -4 :unit :day))))
+      (is (equal (cl-cdsi/util:parse-intervals "18years-4days") '((:amount 18 :unit :year) (:amount -4 :unit :day)))))
 
 (test adjust-dates
       (is (local-time:timestamp= (cl-cdsi/util:parse-and-adjust "1 years" "1/1/2020") (parse "2021-01-01")))
