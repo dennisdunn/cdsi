@@ -18,6 +18,7 @@
                                                        :serial t
                                                        :components ((:file "package")
                                                                     (:file "util")
+                                                                    (:file "tags")
                                                                     (:file "date-math")))
                                               (:module "support"
                                                        :serial t

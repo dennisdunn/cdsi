@@ -11,5 +11,9 @@
            :parse-intervals
            :parse-and-adjust
            :adjust
-           :date+))
+           :date+
+           :tag-attach
+           :tag-type
+           :tag-content
+           :tag-p))
 
