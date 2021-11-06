@@ -25,9 +25,11 @@
                                                        :components ((:file "package")
                                                                     (:file "params")
                                                                     (:file "structs")
+                                                                    (:file "tags")
+                                                                    (:file "xml-node-helpers")
                                                                     (:file "testcase-data")
                                                                     (:file "schedule-data")
-                                                                    (:file "supporting-data")))
+                                                                    (:file "antigen-data")))
                                               (:module "cdsi"
                                                        :serial t
                                                        :components ((:file "package")

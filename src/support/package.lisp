@@ -6,9 +6,12 @@
           :xmls
           :cl-ppcre
           :cl-cdsi/util)
-    (:export :antigen
+    (:export :get-node 
+             :antigen
              :antigen-keys
              :antigen-series
+             :antigen-contraindications
+             :antigen-immunity
              :series-type
              :series-indications
              :series-required-genders

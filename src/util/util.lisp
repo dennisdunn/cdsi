@@ -8,6 +8,3 @@
         (setf (symbol-plist sym) `(:name ,name))
         sym)))
 
-(defun node->string (name source)
-  "Get the named node from the source as a string."
-  (xmls:xmlrep-string-child (xmls:xmlrep-find-child-tag source name) nil))

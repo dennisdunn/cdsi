@@ -18,6 +18,8 @@
 
 ;;; Exported functions
 
+
+
 ;; Antigen
 
 (defun antigen (key)
@@ -32,6 +34,14 @@
 (defun antigen-series (antigen)
   "Get the series' associated with this antigen."
   (xmls:xmlrep-find-child-tags 'series antigen))
+
+(defun antigen-immunity (antigen)
+  "Get the immunity  associated with this antigen."
+  (xmls:xmlrep-find-child-tags 'immunity antigen))
+
+(defun antigen-contraindications (antigen)
+  "Get the contraindications associated with this antigen."
+  (xmls:xmlrep-find-child-tags 'contraindications antigen))
 
 ;; Series
 
@@ -56,3 +66,5 @@
   "Get the begin age as a parsed list of intervals."
   (parse-intervals (xmls:xmlrep-string-child tag indication)))
 
+;;;; Initialize the package
+(antigen-keys)

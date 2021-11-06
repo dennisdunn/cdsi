@@ -12,8 +12,7 @@
            :parse-and-adjust
            :adjust
            :date+
-           :tag-attach
-           :tag-type
-           :tag-content
-           :tag-p))
-
+           :node-path
+           :node-tags
+           :node-text
+           :node-parse))
