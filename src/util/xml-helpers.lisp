@@ -1,4 +1,4 @@
-(in-package :cl-cdsi/support)
+(in-package :cl-cdsi/util)
 
 (defun node-path (node &rest path)
   "Given a path of the form '(property [index] property [index] ...), return the indicated node."
@@ -9,7 +9,7 @@
 
 (defun node-text (node)
   "Return the string child of the node."
-  (xmls:xmlrep-node-string node nil))
+  (xmls:xmlrep-string-child node nil))
 
 (defun node-parse (node parser)
   "Parse the string child of the node with the parser function."
@@ -33,6 +33,6 @@
                      ((and (numberp selector) (listp node) (< selector (length node))) (setf next (nth selector node)))
                      ((symbolp selector) (setf next (xmls:xmlrep-find-child-tags selector node)))
                      (t (error "Invalid selector ~A" selector)))
-               (extract-node-by-path next tail))))))
+               (node-by-path next tail))))))
 
 

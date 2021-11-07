@@ -17,23 +17,20 @@
                                  :components ((:module "util"
                                                        :serial t
                                                        :components ((:file "package")
-                                                                    (:file "util")
-                                                                    (:file "tags")
+                                                                    (:file "convertors")
+                                                                    (:file "xml-helpers")
+                                                                    (:file "csv-helpers")
                                                                     (:file "date-math")))
                                               (:module "support"
                                                        :serial t
                                                        :components ((:file "package")
                                                                     (:file "params")
-                                                                    (:file "structs")
-                                                                    (:file "tags")
-                                                                    (:file "xml-node-helpers")
-                                                                    (:file "testcase-data")
-                                                                    (:file "schedule-data")
-                                                                    (:file "antigen-data")))
+                                                                    (:file "data/testcase")
+                                                                    (:file "data/schedule")
+                                                                    (:file "data/antigen")))
                                               (:module "cdsi"
                                                        :serial t
-                                                       :components ((:file "package")
-                                                                    (:file "select-patient-series")))))))
+                                                       :components ((:file "package")))))))
 
 (defsystem :cl-cdsi/tests
            :author "Dennis Dunn <ansofive@gmail.com>"

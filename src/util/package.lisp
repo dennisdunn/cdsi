@@ -4,9 +4,12 @@
   (:nicknames :u)
   (:use :cl
         :cl-ppcre
+        :xmls
         :local-time)
   (:export :name->keyword
-           :node->string
+           :keyword->name
+           :keyword->camel-case
+           :kvp->alist
            :parse-date
            :parse-intervals
            :parse-and-adjust
@@ -15,4 +18,10 @@
            :node-path
            :node-tags
            :node-text
-           :node-parse))
+           :node-parse
+           :csv-read
+           :csv-headers
+           :csv-column
+           :csv-row
+           :csv-find))
+
