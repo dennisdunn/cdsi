@@ -9,6 +9,7 @@
   (:export :name->keyword
            :keyword->name
            :keyword->camel-case
+           :alist->node
            :kvp->alist
            :parse-date
            :parse-intervals

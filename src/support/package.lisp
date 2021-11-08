@@ -8,7 +8,7 @@
           :cl-ppcre
           :cl-cdsi/util)
     (:export :antigen
-             :antigen-keys
+             :antigen-ids
              :schedule
              :testcase
-             :testcase-keys))
+             :testcase-ids))

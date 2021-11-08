@@ -24,5 +24,5 @@
 (defun csv-find (path key)
   "Find the first row whose first column equals the key."
   (find-if (lambda (row)
-             (eq key (name->keyword (car row))))
+             (equal key (car row)))
            (csv-read path)))
