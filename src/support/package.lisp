@@ -1,7 +1,7 @@
 ;;;; packages.lisp
 
   (defpackage :cl-cdsi/support
-    (:nicknames :db)
+    (:nicknames :s)
     (:use :cl
           :xmls
           :cl-csv

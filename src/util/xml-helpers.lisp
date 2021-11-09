@@ -1,7 +1,7 @@
 (in-package :cl-cdsi/util)
 
 (defun node-path (node &rest path)
-  "Given a path of the form '(property [index] property [index] ...), return the indicated node."
+  "Given a path of the form 'property [index] 'property [index] ..., return the indicated node."
   (let ((result (node-by-path node path)))
     (if (and (listp result) (= 1 (length result)))
       (car result)
@@ -9,7 +9,7 @@
 
 (defun node-text (node)
   "Return the string child of the node."
-  (xmls:xmlrep-string-child node nil))
+  (xmls:xmlrep-children node))
 
 (defun node-parse (node parser)
   "Parse the string child of the node with the parser function."

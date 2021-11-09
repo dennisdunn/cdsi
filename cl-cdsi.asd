@@ -21,13 +21,16 @@
                                                                     (:file "xml-helpers")
                                                                     (:file "csv-helpers")
                                                                     (:file "date-math")))
+                                              (:module "dal"
+                                                       :serial t
+                                                       :components ((:file "package")))
                                               (:module "support"
                                                        :serial t
                                                        :components ((:file "package")
                                                                     (:file "params")
-                                                                    (:file "data/testcase")
-                                                                    (:file "data/schedule")
-                                                                    (:file "data/antigen")))
+                                                                    (:file "testcase")
+                                                                    (:file "schedule")
+                                                                    (:file "antigen")))
                                               (:module "cdsi"
                                                        :serial t
                                                        :components ((:file "package")))))))
