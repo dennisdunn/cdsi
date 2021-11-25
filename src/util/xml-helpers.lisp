@@ -4,8 +4,8 @@
   "Given a path of the form 'property [index] 'property [index] ..., return the indicated node."
   (let ((result (node-by-path node path)))
     (if (and (listp result) (= 1 (length result)))
-      (car result)
-      result)))
+	(car result)
+	result)))
 
 (defun node-text (node)
   "Return the string child of the node."
@@ -14,13 +14,6 @@
 (defun node-parse (node parser)
   "Parse the string child of the node with the parser function."
   (funcall parser (node-text node)))
-
-(defun node-tags (node)
-  "Get a list of the names of the direct children nodes."
-  (let ((n (if (listp node) 
-             (car node) 
-             node)))
-    (remove-duplicates (mapcar #'node-name (node-children n)) :test #'string=)))
 
 (defun node-by-path (node path-list)
   "Given a list of path components, recurse over the node to the final component."
@@ -35,4 +28,29 @@
                      (t (error "Invalid selector ~A" selector)))
                (node-by-path next tail))))))
 
+
+
+
+(defun node-tags (node)
+  "Get a list of the names of the direct children nodes."
+  (if (listp (xmls:xmlrep-children node))
+      (remove-duplicates (mapcar #'xmls:xmlrep-tag (xmls:xmlrep-children node)) :test #'string=) nil))
+
+(defun node-collect-properties (node)
+  "Collect similar tags into a list and return a new node."
+  (let* ((tags (node-tags node))
+         (children (mapcar #'(lambda (tag) 
+			       (let ((nodes (xmls:xmlrep-find-child-tags tag node)))
+				 (if (= 1 (length nodes))
+				     (car nodes)
+				     (xmls:make-xmlrep (format nil "~As" tag) :children nodes)))) tags)))
+    (xmls:make-xmlrep (xmls:xmlrep-tag node) :children children)))
+
+(defun node->plist (node)
+  "Take an xmls:xmlrep and make it into a plist."
+     (let* ((children (xmls:xmlrep-children node))
+	    (plist (if (atom children)
+	   `(,(u:name->keyword (xmls:xmlrep-tag node)) ,children)
+	   (u:flatten (mapcar #'node->plist children)))))
+       (append `(:type ,(xmls:xmlrep-tag node)) plist)))
 

@@ -11,6 +11,10 @@
            :keyword->camel-case
            :alist->node
            :kvp->alist
+           :node->plist
+           :defmodel
+           :defclass%
+           :make-instance%
            :parse-date
            :parse-intervals
            :parse-and-adjust
@@ -20,9 +24,11 @@
            :node-tags
            :node-text
            :node-parse
+           :node->plist
+           :node-collect-properties
            :csv-read
            :csv-headers
            :csv-column
            :csv-row
-           :csv-find))
-
+           :csv-find
+           :flatten))
