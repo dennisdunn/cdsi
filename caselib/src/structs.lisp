@@ -14,9 +14,17 @@
   patient
   doses) 
 
-(defstruct evaluation)
+(defstruct evaluation
+  series-status
+  evaluation-type)
 
-(defstruct forecast)
+(defstruct forecast
+  number
+  earliest
+  recommended
+  past-due
+  vaccine-group
+  forecast-type)
 
 (defstruct patient 
   dob
