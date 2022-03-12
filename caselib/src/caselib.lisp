@@ -4,7 +4,7 @@
 (defparameter *file-name* "cdsi-healthy-childhood-and-adult-test-cases-v4.8.csv")
 
 (defun mk-catalog (header row)
-  (make-catalog :id (csv-value header row "CDC_Test_ID")
+ (make-catalog :id (csv-value header row "CDC_Test_ID")
                 :name (csv-value header row "TestCase_Name")
                 :text (csv-value header row "General_Description")))
 
@@ -43,6 +43,7 @@
                            :mvx (csv-value header row (format nil "MVX_~a" n))
                            :evaluation-status (csv-value header row (format nil "Evaluation_Status_~a" n))
                            :evaluation-reason (csv-value header row (format nil "Evaluation_Reason_~a" n)))))
+
 
 (defun get-catalog ()
   "Get a catalog of all testcases."
