@@ -1,7 +1,10 @@
-
-
 (defpackage :caselib
-  (:nicknames :tc)
   (:use :cl)
-  (:export :catalog
-           :catalog-read))
+  (:export :get-catalog
+           :get-case
+           :catalog
+           :testcase
+           :patient
+           :dose
+           :evaluation
+           :forecast))

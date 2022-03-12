@@ -3,12 +3,12 @@
 (defun csv-read (path)
   "Read the csv file and return the list of rows."
   (let ((data (cl-csv:read-csv path :unquoted-empty-string-is-nil t
-                               :trim-outer-whitespace t )))
+                               :trim-outer-whitespace t)))
     (values (make-header (car data)) (cdr data))))
 
 (defun make-header (row)
   "Read the first line of the testcase file and return an alist mapping column name to column number."
-  (loop for key in  row
+  (loop for key in row
         for idx from 0
         collect (cons key idx)))
 

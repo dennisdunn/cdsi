@@ -2,7 +2,7 @@
 (in-package :caselib/tests)
 
 (def-suite all-tests
-    :description "The master suite of tests.")
+  :description "The master suite of tests.")
 
 (in-suite all-tests)
 
