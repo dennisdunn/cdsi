@@ -1,6 +1,6 @@
-(defpackage :calcdate/tests
-  (:use :cl
-        :fiveam
-        :calcdate)
-  (:export :execute))
+(defpackage #:calcdate/tests
+  (:use #:cl
+        #:fiveam
+        #:calcdate)
+  (:export #:runall))
           

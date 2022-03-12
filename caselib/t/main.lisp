@@ -6,7 +6,7 @@
 
 (in-suite all-tests)
 
-(defun execute ()
+(defun runall ()
   (run! 'all-tests))
 
 (test dummy-tests

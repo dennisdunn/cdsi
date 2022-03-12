@@ -1,6 +1,6 @@
-(defpackage :caselib/tests
-  (:use :cl
-        :fiveam
-        :caselib)
-  (:export :execute))
+(defpackage #:caselib/tests
+  (:use #:cl
+        #:fiveam
+        #:caselib)
+  (:export #:runall))
           

@@ -6,7 +6,7 @@
            :license "MIT"
            :version "0.1.0"
            :serial t
-           :depends-on ()
+           :depends-on (:cl-csv)
            :components ((:module "src"
                                  :serial t
                                  :components ((:file "package")

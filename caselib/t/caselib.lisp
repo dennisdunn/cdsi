@@ -11,6 +11,6 @@
             (is (= (length ids)) 823))))
 
 (test find-specific-testcase
-      (let ((tcase (caselib:load "2013-0001")))
+      (let ((tcase (caselib:catalog-read "2013-0001")))
         (is (string= (case-id tcase) "2013-0001"))))
 

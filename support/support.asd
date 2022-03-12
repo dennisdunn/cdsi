@@ -9,7 +9,9 @@
   :depends-on ()
   :components ((:module "src"
                         :serial t
-                        :components ((:file "package")))))
+                        :components ((:file "package")
+                                     (:file "antigen")
+                                     (:file "schedule")))))
 
 (defsystem :support/tests
   :author "Dennis Dunn <ansofive@gmail.com>"
@@ -21,4 +23,4 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                     (:file "support"))))
+                                     (:file "support")))))
