@@ -52,5 +52,7 @@
       (mapcar (lambda (row) (mk-catalog header row)) rows))))
 
 (defun get-case (id)
-  "Load the testcase identified by the argument."
-  (find-if (lambda (x) (string= id (testcase-id x))) (get-catalog)))
+  "Load the testcase identified by the argument." 
+  (let* ((path (merge-pathnames *data-path* *file-name*)))
+    (multiple-value-bind (header rows) (csv-read path)
+     (mk-testcase header (find-if (lambda (x) (string= id (csv-value header x "CDC_Test_ID"))) rows)))))
