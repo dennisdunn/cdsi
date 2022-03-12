@@ -4,7 +4,7 @@
 (defparameter *file-name* "cdsi-healthy-childhood-and-adult-test-cases-v4.8.csv")
 
 (defun mk-catalog (header row)
- (make-catalog :id (csv-value header row "CDC_Test_ID")
+  (make-catalog :id (csv-value header row "CDC_Test_ID")
                 :name (csv-value header row "TestCase_Name")
                 :text (csv-value header row "General_Description")))
 
@@ -44,7 +44,6 @@
                            :evaluation-status (csv-value header row (format nil "Evaluation_Status_~a" n))
                            :evaluation-reason (csv-value header row (format nil "Evaluation_Reason_~a" n)))))
 
-
 (defun get-catalog ()
   "Get a catalog of all testcases."
   (let* ((path (merge-pathnames *data-path* *file-name*)))
@@ -53,4 +52,6 @@
 
 (defun get-case (id)
   "Load the testcase identified by the argument."
-  (find-if (lambda (x) (string= id (testcase-id x))) (get-catalog)))
+  (let* ((path (merge-pathnames *data-path* *file-name*)))
+    (multiple-value-bind (header rows) (csv-read path)
+      (mk-testcase header (find-if (lambda (x) (string= id (csv-value header x "CDC_Test_ID"))) rows)))))

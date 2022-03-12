@@ -12,7 +12,7 @@
   evaluation
   forecast
   patient
-  doses) 
+  doses)
 
 (defstruct evaluation
   series-status
@@ -26,12 +26,12 @@
   vaccine-group
   forecast-type)
 
-(defstruct patient 
+(defstruct patient
   dob
   gender
   assessment)
 
-(defstruct dose 
+(defstruct dose
   number
   date-administered
   vaccine-name
@@ -39,4 +39,3 @@
   mvx
   evaluation-status
   evaluation-reason)
- 
