@@ -1,12 +1,12 @@
 ;;;; t/main.lisp
-(in-package #:cl-cdsi/tests)
+(in-package #:cdsi/tests)
 
 (def-suite all-tests
     :description "The master suite of all cl-cdsi tests.")
 
 (in-suite all-tests)
 
-(defun test-sys ()
+(defun runall ()
   (run! 'all-tests))
 
 (test dummy-tests
