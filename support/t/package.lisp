@@ -1,6 +1,6 @@
 (defpackage #:support/tests
   (:use #:cl 
         #:fiveam
-        #:cl-cdsi)
+        #:support)
   (:export #:runall))
           

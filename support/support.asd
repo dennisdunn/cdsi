@@ -6,10 +6,13 @@
   :license "MIT"
   :version "0.1.0"
   :serial t
-  :depends-on ()
+  :depends-on (:xmls
+               :cl-csv
+               :cl-ppcre)
   :components ((:module "src"
                         :serial t
                         :components ((:file "package")
+                                     (:file "config")
                                      (:file "antigen")
                                      (:file "schedule")))))
 
@@ -17,7 +20,7 @@
   :author "Dennis Dunn <ansofive@gmail.com>"
   :license "MIT"
   :version "0.1.0"
-  :depends-on (:cl-cdsi
+  :depends-on (:support
                :fiveam)
   :components ((:module "t"
                         :serial t
