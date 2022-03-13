@@ -26,4 +26,4 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                     (:file "cdsi")))))
+                                      (:file "cdsi")))))
