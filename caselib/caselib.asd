@@ -10,6 +10,7 @@
   :components ((:module "src"
                         :serial t
                         :components ((:file "package")
+                                     (:file "config")
                                      (:file "structs")
                                      (:file "csv")
                                      (:file "caselib")))))

@@ -7,7 +7,7 @@
     (values (make-header (car data)) (cdr data))))
 
 (defun make-header (row)
-  "Read the first line of the testcase file and return an alist mapping column name to column number."
+  "Take the first row of the testcase file and return an alist mapping column name to column number."
   (loop for key in row
         for idx from 0
         collect (cons key idx)))

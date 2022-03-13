@@ -1,8 +1,5 @@
 (in-package :caselib)
 
-(defparameter *data-path* "./caselib/data/")
-(defparameter *file-name* "cdsi-healthy-childhood-and-adult-test-cases-v4.8.csv")
-
 (defun mk-catalog (header row)
  (make-catalog :id (csv-value header row "CDC_Test_ID")
                 :name (csv-value header row "TestCase_Name")
