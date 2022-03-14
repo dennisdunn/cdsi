@@ -1,6 +1,4 @@
 ;;;; cdsi/package.lisp
 
-(defpackage :cl-cdsi
-  (:nicknames :c :cdsi)
+(defpackage :cdsi
   (:use :cl))
-

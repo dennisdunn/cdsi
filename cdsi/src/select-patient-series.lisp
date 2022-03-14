@@ -1,4 +1,4 @@
-(in-package :cl-cdsi)
+(in-package :cdsi)
 
 (defun series-standard-p (series)
   "Returns T if this is a standard series or nil for a risk series."
