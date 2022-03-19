@@ -1,4 +1,5 @@
 ;;;; cdsi/package.lisp
 
 (defpackage :cdsi
-  (:use :cl))
+  (:use :cl)
+  (:export :prepare-antigen-records))

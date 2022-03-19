@@ -1,30 +1,24 @@
-;;;; cl-cdsi.asd
-
-(defsystem :support
-  :description "CDSi supporting data package."
+(defsystem :xmlpath
+  :description "A very simple xpath-ish utility."
   :author "Dennis Dunn <ansofive@gmail.com>"
   :license "MIT"
   :version "0.1.0"
   :serial t
   :depends-on (:xmls
-               :cl-csv
-               :cl-ppcre)
+               :parser-combinators)
   :components ((:module "src"
                         :serial t
                         :components ((:file "package")
-                                     (:file "config")
-                                     (:file "antigen")
-                                     (:file "schedule")))))
+                                     (:file "xmlpath")))))
 
-(defsystem :support/tests
+(defsystem :xmlpath/tests
   :author "Dennis Dunn <ansofive@gmail.com>"
   :license "MIT"
   :version "0.1.0"
-  :depends-on (:support
+  :depends-on (:xmlpath
                :fiveam)
   :components ((:module "t"
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                     (:file "simple-xpath")
-                                     (:file "support")))))
+                                     (:file "xmlpath")))))

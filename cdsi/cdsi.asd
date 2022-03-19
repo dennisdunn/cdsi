@@ -1,5 +1,3 @@
-;;;; cl-cdsi.asd
-
 (defsystem :cdsi
   :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
   :author "Dennis Dunn <ansofive@gmail.com>"
@@ -12,6 +10,8 @@
   :components ((:module "src"
                         :serial t
                         :components ((:file "package")
+                                     (:file "structs")
+                                     (:file "prepare-data")
                                      (:file "select-patient-series")))))
 
 (defsystem :cdsi/tests
@@ -26,4 +26,4 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                      (:file "cdsi")))))
+                                     (:file "cdsi")))))

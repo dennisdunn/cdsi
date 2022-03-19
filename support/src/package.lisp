@@ -7,4 +7,7 @@
         :cl-ppcre)
   (:export :antigen
            :antigen-ids
-           :schedule))
+           :schedule
+           :get-antigens
+           :cvx-antigen-map
+           :get-cvx))

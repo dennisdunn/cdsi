@@ -4,7 +4,15 @@
            :get-case
            :catalog
            :testcase
+           :testcase-doses
            :patient
-           :dose
            :evaluation
-           :forecast))
+           :forecast
+           :dose
+           :dose-number
+           :dose-date-administered
+           :dose-vaccine-name
+           :dose-cvx
+           :dose-mvx
+           :dose-evaluation-status
+           :dose-evaluation-reason))
