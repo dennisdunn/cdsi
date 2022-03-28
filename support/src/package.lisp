@@ -2,7 +2,6 @@
 
 (defpackage :support
   (:use :cl
-        :xmls
         :cl-csv
         :cl-ppcre)
   (:export :antigen

@@ -6,7 +6,8 @@
   :license "MIT"
   :version "0.1.0"
   :serial t
-  :depends-on (:xmls
+  :depends-on (:cxml
+               :xpath
                :cl-csv
                :cl-ppcre)
   :components ((:module "src"
@@ -26,5 +27,4 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                     (:file "simple-xpath")
                                      (:file "support")))))
