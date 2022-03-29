@@ -6,9 +6,6 @@
 
 (in-suite all-tests)
 
-(defun runall ()
-  (run! 'all-tests))
-
 (test dummy-tests
   "Just a placeholder."
   (is (listp (list 1 2)))

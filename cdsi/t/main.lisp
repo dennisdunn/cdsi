@@ -2,12 +2,9 @@
 (in-package #:cdsi/tests)
 
 (def-suite all-tests
-    :description "The master suite of all cl-cdsi tests.")
+    :description "The master suite of all cdsi tests.")
 
 (in-suite all-tests)
-
-(defun runall ()
-  (run! 'all-tests))
 
 (test dummy-tests
   "Just a placeholder."

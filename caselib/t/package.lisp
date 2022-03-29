@@ -2,4 +2,5 @@
   (:use #:cl
         #:fiveam
         #:caselib)
-  (:export #:runall))
+  (:export #:run!
+           #:all-tests))

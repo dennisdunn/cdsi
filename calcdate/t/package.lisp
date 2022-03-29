@@ -2,5 +2,5 @@
   (:use #:cl
         #:fiveam
         #:calcdate)
-  (:export #:runall))
-          
+  (:export #:run!
+           #:all-tests))

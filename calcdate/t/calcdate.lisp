@@ -1,10 +1,14 @@
 (in-package :calcdate/tests)
 
-(def-suite calcdate-tests
-           :description "Test the date/time parsing and arithmetic functions."
+(def-suite calcdate-parsing-tests
+           :description "Test the date/time parsing functions."
            :in all-tests)
 
-(in-suite calcdate-tests)
+(def-suite calcdate-math-tests
+           :description "Test the date/time arithmetic functions."
+           :in all-tests)
+
+(in-suite calcdate-parsing-tests)
 
 (defun parse (datestring)
   "Parses the datestring into a timestamp in the default timezone"
@@ -22,6 +26,9 @@
       (is (equal (parse-intervals "65 years") '((:amount 65 :unit :year))))
       (is (equal (parse-intervals "18 years - 4 days") '((:amount 18 :unit :year) (:amount -4 :unit :day))))
       (is (equal (parse-intervals "18years-4days") '((:amount 18 :unit :year) (:amount -4 :unit :day)))))
+
+
+(in-suite calcdate-math-tests)
 
 (test adjust-dates
       (is (local-time:timestamp= (parse-and-adjust "1 years" "1/1/2020") (parse "2021-01-01")))

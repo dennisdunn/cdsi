@@ -1,6 +1,6 @@
 (defpackage #:support/tests
-  (:use #:cl 
+  (:use #:cl
         #:fiveam
         #:support)
-  (:export #:runall))
-          
+  (:export #:run!
+           #:all-tests))

@@ -1,6 +1,6 @@
 (defpackage #:cdsi/tests
-  (:use #:cl 
+  (:use #:cl
         #:fiveam
         #:cdsi)
-  (:export #:runall))
-          
+  (:export #:run!
+           #:all-tests))
