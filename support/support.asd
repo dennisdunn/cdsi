@@ -15,7 +15,8 @@
                         :components ((:file "package")
                                      (:file "config")
                                      (:file "antigen")
-                                     (:file "schedule")))))
+                                     (:file "schedule"))))
+  :in-order-to ((test-op (test-op :support/tests))))
 
 (defsystem :support/tests
   :author "Dennis Dunn <ansofive@gmail.com>"
@@ -27,4 +28,6 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                     (:file "support")))))
+                                     (:file "support"))))
+  :perform (test-op (op c) (symbol-call :fiveam :run!
+                                        (find-symbol* 'all-tests :support/tests))))

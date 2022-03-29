@@ -8,10 +8,8 @@
 
 (defun get-cvx (cvx)
   "Get the cvx from the antigen map."
-  (xpath:evaluate (format nil "//cvxMap[cvx=~A]//antigen" cvx) *schedule*))
+  (xpath:evaluate (format nil "//cvxMap[cvx=~A]//antigen" cvx) (schedule)))
 
 (defun get-antigens (cvx)
   "Get the antigens associated with the cvx."
   (xpath:map-node-set->list #'xpath:string-value (get-cvx cvx)))
-
-(defparameter *schedule* (schedule))

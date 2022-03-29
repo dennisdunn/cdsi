@@ -13,7 +13,8 @@
                                      (:file "config")
                                      (:file "structs")
                                      (:file "csv")
-                                     (:file "caselib")))))
+                                     (:file "caselib"))))
+  :in-order-to ((test-op (test-op :caselib/tests))))
 
 (defsystem :caselib/tests
   :author "Dennis Dunn <ansofive@gmail.com>"
@@ -25,4 +26,6 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                     (:file "caselib")))))
+                                     (:file "caselib"))))
+  :perform (test-op (op c) (symbol-call :fiveam :run!
+                                        (find-symbol* 'all-tests :caselib/tests))))

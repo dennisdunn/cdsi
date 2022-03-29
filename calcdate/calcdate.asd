@@ -13,7 +13,8 @@
   :components ((:module "src"
                         :serial t
                         :components ((:file "package")
-                                     (:file "calcdate")))))
+                                     (:file "calcdate"))))
+  :in-order-to ((test-op (test-op :calcdate/tests))))
 
 (defsystem :calcdate/tests
   :author "Dennis Dunn <ansofive@gmail.com>"
@@ -25,4 +26,6 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                     (:file "calcdate")))))
+                                     (:file "calcdate"))))
+  :perform (test-op (op c) (symbol-call :fiveam :run!
+                                        (find-symbol* 'all-tests :calcdate/tests))))

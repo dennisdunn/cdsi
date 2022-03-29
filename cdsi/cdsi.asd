@@ -12,7 +12,8 @@
                         :components ((:file "package")
                                      (:file "structs")
                                      (:file "prepare-data")
-                                     (:file "select-patient-series")))))
+                                     (:file "select-patient-series"))))
+  :in-order-to ((test-op (test-op :cdsi/tests))))
 
 (defsystem :cdsi/tests
   :author "Dennis Dunn <ansofive@gmail.com>"
@@ -26,4 +27,6 @@
                         :serial t
                         :components ((:file "package")
                                      (:file "main")
-                                     (:file "cdsi")))))
+                                     (:file "cdsi"))))
+  :perform (test-op (op c) (symbol-call :fiveam :run!
+                                        (find-symbol* 'all-tests :cdsi/tests))))
