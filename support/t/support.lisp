@@ -14,5 +14,4 @@
 (test get-antigens
   "Fetch a list of antigens for a cvx."
   (let ((antigens (support:get-antigens 132)))
-    (print antigens)
-    (is (not (null antigens)))))
+    (is (eq 6 (length antigens)))))
