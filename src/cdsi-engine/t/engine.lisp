@@ -1,4 +1,4 @@
-(in-package #:cdsi/tests)
+(in-package :org.opencdsi.engine/tests)
 
 (def-suite cdsi-tests
            :description "Test the evaluation/forecasting functions."
