@@ -1,7 +1,7 @@
 (in-package :caselib)
 
 (defun mk-catalog (header row)
- (make-catalog :id (csv-value header row "CDC_Test_ID")
+  (make-catalog :id (csv-value header row "CDC_Test_ID")
                 :name (csv-value header row "TestCase_Name")
                 :text (csv-value header row "General_Description")))
 
@@ -13,6 +13,7 @@
                  :evaluation (mk-evaluation header row)
                  :forecast (mk-forecast header row)
                  :doses (mk-doses header row)))
+
 (defun mk-patient (header row)
   (make-patient :dob (csv-value header row "DOB")
                 :gender (csv-value header row "gender")
@@ -32,7 +33,7 @@
 
 (defun mk-doses (header row)
   (loop for n from 1 to 7
-        when (csv-value header row (format nil "Date_Administered_~a" n))
+          when (csv-value header row (format nil "Date_Administered_~a" n))
         collect (make-dose :number (format nil "~a" n)
                            :date-administered (csv-value header row (format nil "Date_Administered_~a" n))
                            :vaccine-name (csv-value header row (format nil "Vaccine_Name_~a" n))
@@ -47,6 +48,11 @@
   (let* ((path (merge-pathnames *data-path* *file-name*)))
     (multiple-value-bind (header rows) (csv-read path)
       (mapcar (lambda (row) (mk-catalog header row)) rows))))
+
+(defun get-cases ()
+  (let* ((path (merge-pathnames *data-path* *file-name*)))
+    (multiple-value-bind (header rows) (csv-read path)
+      (mapcar (lambda (row) (mk-testcase header row)) rows))))
 
 (defun get-case (id)
   "Load the testcase identified by the argument."

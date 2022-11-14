@@ -43,6 +43,7 @@
                      :components
                      ((:file "package")
                       (:file "main")
+                      (:file "patient-info")
                       (:file "calcdate")
                       (:file "schedule")
                       (:file "engine")))))
