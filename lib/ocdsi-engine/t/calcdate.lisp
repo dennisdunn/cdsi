@@ -1,4 +1,4 @@
-(in-package :calcdate/tests)
+(in-package :ocdsi-engine/tests)
 
 (def-suite calcdate-tests
            :description "Test the date/time parsing and arithmetic functions."

@@ -1,5 +1,5 @@
 ;;;; t/main.lisp
-(in-package #:support/tests)
+(in-package :ocdsi-engine/tests)
 
 (def-suite all-tests
     :description "The master suite of all cl-cdsi tests.")

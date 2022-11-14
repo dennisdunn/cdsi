@@ -1,4 +1,5 @@
 ;;;; Patient information extracted from the supporting data.
+(in-package :ocdsi-engine/tests)
 
 '("2013-0001"
   (:CASE-NUMBER "2013-0001" :DOB (:YEAR 2021 :MONTH 5 :DAY 10) :COB NIL :GENDER
