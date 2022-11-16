@@ -19,6 +19,7 @@
                                               (:module "schedule"
                                                        :serial t
                                                        :components ((:file "package")
+                                                                    (:file "config")
                                                                     (:file "schedule")
                                                                     (:file "antigen")))
                                               (:module "gather-data"

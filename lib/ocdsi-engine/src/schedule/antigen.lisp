@@ -1,4 +1,4 @@
-(in-package :support)
+(in-package :schedule)
 
 (defun antigen (id)
   "Load and parse the antigen file identified by the name."

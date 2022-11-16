@@ -1,6 +1,6 @@
 ;;;; packages.lisp
 
-(defpackage :support
+(defpackage :schedule
   (:use :cl
         :xmls
         :cl-csv
