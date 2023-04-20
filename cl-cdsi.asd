@@ -19,6 +19,7 @@
                         "rove")
            :components ((:module "tests"
                                  :components
-                                 ((:file "calendar"))))
+                                 ((:file "packages")
+                                  (:file "calendar"))))
            :description "Test system for cl-cdsi"
            :perform (test-op (op c) (symbol-call :rove :run c)))
