@@ -9,8 +9,8 @@
 (defparameter +seconds-in-a-day+ (* 60 60 24))
 (defparameter +timezone+ 0) ; All times are in the UTC timezone
 
-;;;; Parsing dates "MM/DD/YYYY"
-;;;; Parsing intrvals "1 year - 4 days"
+;;;; Parse dates "MM/DD/YYYY"
+;;;; Parse intrvals "1 year - 4 days"
 
 (defun parse (s)
   (if (> (ppcre:count-matches "[a-zA-Z]" s) 0)
