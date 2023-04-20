@@ -1,5 +1,7 @@
-;;;; t/main.lisp
-(in-package #:cdsi/tests)
+
+(in-package :cl-cdsi/tests)
+
+;; NOTE: To run this test file, execute `(asdf:test-system :cdsi)' in your Lisp.
 
 (def-suite all-tests
     :description "The master suite of all cdsi tests.")
