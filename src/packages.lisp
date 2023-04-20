@@ -1,6 +1,6 @@
 (in-package :cl-user)
 
-(defpackage :cl-cdsi/date-math
+(defpackage :cl-cdsi/calendar
   (:use :cl
         :cl-ppcre)
   (:export date
@@ -15,4 +15,4 @@
 
 (defpackage :cl-cdsi
   (:use :cl
-        :cl-cdsi/date-math))
+        :cl-cdsi/calendar))

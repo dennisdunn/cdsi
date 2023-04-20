@@ -1,4 +1,4 @@
-(in-package :cl-cdsi/date-math)
+(in-package :cl-cdsi/calendar)
 
 (defstruct (date (:conc-name nil) (:constructor make-date (year month day)))
   year month day)
