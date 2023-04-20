@@ -3,8 +3,10 @@
 (defpackage :cl-cdsi/date-math
   (:use :cl
         :cl-ppcre)
-  (:export date+
+  (:export date
+           interval
            parse
+           date+
            date=
            date<
            date<=

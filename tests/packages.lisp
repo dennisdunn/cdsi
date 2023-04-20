@@ -3,4 +3,6 @@
 (defpackage :cl-cdsi/tests
   (:use :cl
         :cl-cdsi
-        :fiveam))
+        :fiveam)
+  (:export :run!
+           :all-tests))
