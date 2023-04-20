@@ -35,12 +35,14 @@
 ;;;; Date arithmetic
 
 (defun date+ (dt int)
-  (let ((u (unit int))
-        (v (value int)))
-    (cond ((eq u :year) (year+ dt v))
-          ((eq u :month) (month+ dt v))
-          ((eq u :week) (week+ dt v))
-          ((eq u :day) (day+ dt v)))))
+  (if (interval-p int)
+      (let ((u (unit int))
+            (v (value int)))
+        (cond ((eq u :year) (year+ dt v))
+              ((eq u :month) (month+ dt v))
+              ((eq u :week) (week+ dt v))
+              ((eq u :day) (day+ dt v))))
+      (reduce #'date+ int :initial-value dt)))
 
 (defun year+ (dt v)
   (normalize (make-date (+ (year dt) v) (month dt) (day dt))))
