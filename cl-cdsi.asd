@@ -11,7 +11,7 @@
                                   (:file "util")
                                   (:file "calendar")
                                   (:file "ehr-interface")
-                                  (:file "supporting-data")
+                                  (:file "supporting-data-interface")
                                   (:file "main"))))
            :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
            :in-order-to ((test-op (test-op "cl-cdsi/tests"))))
