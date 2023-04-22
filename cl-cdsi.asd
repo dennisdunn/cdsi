@@ -2,7 +2,9 @@
            :version "0.1.0"
            :author "Dennis Dunn"
            :license "MIT"
-           :depends-on ("cl-ppcre")
+           :depends-on ("cl-ppcre"
+                        "cl-cdsi-cases"
+                        "cl-cdsi-support")
            :components ((:module "src"
                                  :components
                                  ((:file "packages")
