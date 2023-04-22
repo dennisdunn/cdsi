@@ -7,15 +7,11 @@
   value unit)
 
 (defparameter +seconds-in-a-day+ (* 60 60 24))
-(defparameter +timezone+ 0) ; All times are in the UTC timezone
+(defparameter +timezone+ 0) ; All times are in the UTC timezone for calculation purposes.
+
+;;;; Parsing
 
 ;;;; Parse dates "MM/DD/YYYY"
-;;;; Parse intrvals "1 year - 4 days"
-
-(defun parse (s)
-  (if (> (ppcre:count-matches "[a-zA-Z]" s) 0)
-      (parse-interval s)
-      (parse-date s)))
 
 (defun parse-date (s)
   "Parse a date of the form 'MM/DD/YYYY'"
@@ -23,13 +19,15 @@
          (date-parts (mapcar #'parse-integer parts)))
     (make-date (third date-parts) (first date-parts) (second date-parts))))
 
+;;;; Parse intrvals "1 year - 4 days"
+
 (defun parse-interval (s)
   "Return a list of intervals parsed from the string."
   (let ((str2 (ppcre:regex-replace-all "[sS\\s]" s ""))
         result)
-    (ppcre:do-register-groups ((#'parse-integer value) (#'->keyword unit))
-      ("([+-]?\\d+)(\\w+)" str2)
-      (push (make-interval value unit) result))
+    (ppcre:do-register-groups ((#'parse-integer value) (#'as-keyword unit))
+                              ("([+-]?\\d+)(\\w+)" str2)
+                              (push (make-interval value unit) result))
     (nreverse result)))
 
 ;;;; Date arithmetic
@@ -57,18 +55,18 @@
 (defun week+ (dt v) (day+ dt (* 7 v)))
 
 (defun day+ (dt v)
-  (->date (+ (->timestamp dt) (* v +seconds-in-a-day+))))
+  (as-date (+ (as-timestamp dt) (* v +seconds-in-a-day+))))
 
 ;;;; Date comparers
 
 (defun date= (a b)
-  (= (->timestamp a) (->timestamp b)))
+  (= (as-timestamp a) (as-timestamp b)))
 
 (defun date< (a b)
-  (< (->timestamp a) (->timestamp b)))
+  (< (as-timestamp a) (as-timestamp b)))
 
 (defun date> (a b)
-  (> (->timestamp a) (->timestamp b)))
+  (> (as-timestamp a) (as-timestamp b)))
 
 (defun date<= (a b)
   (not (date> a b)))
@@ -77,18 +75,14 @@
   (not (date< a b)))
 
 ;;;; Misc
-(defun ->keyword (s)
-  (if (symbolp s)
-      (intern (symbol-name s) :keyword)
-      (intern (string-upcase (string s)) :keyword)))
 
-(defun ->timestamp (dt)
+(defun as-timestamp (dt)
   (encode-universal-time 0 0 0 (day dt) (month dt) (year dt) +timezone+))
 
-(defun ->date (ts)
+(defun as-date (ts)
   (multiple-value-bind (s min h d m y) (decode-universal-time ts +timezone+)
     (declare (ignore s min h))
     (make-date y m d)))
 
 (defun normalize (dt)
-  (->date (->timestamp dt)))
+  (as-date (as-timestamp dt)))

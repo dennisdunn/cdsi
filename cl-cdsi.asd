@@ -8,6 +8,7 @@
            :components ((:module "src"
                                  :components
                                  ((:file "packages")
+                                  (:file "util")
                                   (:file "calendar")
                                   (:file "ehr-interface")
                                   (:file "supporting-data")

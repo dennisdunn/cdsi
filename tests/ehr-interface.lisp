@@ -1,6 +1,6 @@
 (in-package :cl-cdsi/tests/ehr-interface)
 
-(deftest test-the-enr-interface
+(deftest test-the-ehr-interface
          (testing "fetch patient info by string id"
                   (let ((record (get-patient-info "2013-0004")))
                     (ok (not (null record)))))
