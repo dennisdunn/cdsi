@@ -23,18 +23,18 @@
     (->patient patient doses)))
 
 (defun ->patient (patient doses)
-  (make-patient :dob (cl-cdsi/calendar:parse (cl-cdsi-cases:patient-dob patient))
-                :gender (cl-cdsi/calendar:->keyword (cl-cdsi-cases:patient-gender patient))
-                :assessment (cl-cdsi/calendar:parse (cl-cdsi-cases:patient-assessment patient))
+  (make-patient :dob (parse (cl-cdsi-cases:patient-dob patient))
+                :gender (->keyword (cl-cdsi-cases:patient-gender patient))
+                :assessment (parse (cl-cdsi-cases:patient-assessment patient))
                 :doses (mapcar #'->dose doses)))
 
 (defun ->dose (dose)
   (make-dose :number (parse-integer (cl-cdsi-cases:dose-number dose))
-             :date-administered (cl-cdsi/calendar:parse (cl-cdsi-cases:dose-date-administered dose))
+             :date-administered (parse (cl-cdsi-cases:dose-date-administered dose))
              :vaccine-name (cl-cdsi-cases:dose-vaccine-name dose)
              :cvx (parse-integer (cl-cdsi-cases:dose-cvx dose))
              :mvx (cl-cdsi-cases:dose-mvx dose)
-             :evaluation-status (cl-cdsi/calendar:->keyword (cl-cdsi-cases:dose-evaluation-status dose))
+             :evaluation-status (->keyword (cl-cdsi-cases:dose-evaluation-status dose))
              :evaluation-reason (cl-cdsi-cases:dose-evaluation-reason dose)))
 
 (defgeneric id->string (id)
