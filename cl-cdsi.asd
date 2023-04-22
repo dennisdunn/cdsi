@@ -27,6 +27,6 @@
                                  ((:file "packages")
                                   (:file "calendar")
                                   (:file "ehr-interface")
-                                  (:file "supporting-data"))))
+                                  (:file "supporting-data-interface"))))
            :description "Test system for cl-cdsi"
            :perform (test-op (op c) (symbol-call :rove :run c)))
