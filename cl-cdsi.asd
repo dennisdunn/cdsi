@@ -11,7 +11,7 @@
                          (:file "util")
                          (:file "calendar")
                          (:file "ehr-interface")
-                         (:file "supporting-data-interface")
+                         (:file "schedule-interface")
                          (:file "main"))))
   :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
   :in-order-to ((test-op (test-op "cl-cdsi/tests"))))
@@ -27,7 +27,7 @@
                         ((:file "packages")
                          (:file "calendar")
                          (:file "ehr-interface")
-                         (:file "supporting-data-interface"))))
+                         (:file "schedule-interface"))))
   :description "Test system for cl-cdsi"
   :perform (test-op (op c) (symbol-call :rove :run c)))
 

@@ -11,7 +11,7 @@
   end-age)
 
 (defun get-vaccine-nodes ()
-  (xmls:xmlrep-find-child-tags "cvxMap" (xmls:xmlrep-find-child-tag "cvxToAntigenMap" (cl-cdsi-support:get-data))))
+  (xmls:xmlrep-find-child-tags "cvxMap" (xmls:xmlrep-find-child-tag "cvxToAntigenMap" (cdsi-support:schedule))))
 
 (defun as-vaccine (node)
   (make-vaccine :cvx (get-integer-value node "cvx")

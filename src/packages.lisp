@@ -27,8 +27,8 @@
            :date>
            :date>=))
 
-(defpackage :cl-cdsi/supporting-data
-  (:nicknames :support)
+(defpackage :cl-cdsi/schedule
+  (:nicknames :schedule)
   (:use :cl
         :util)
   (:export :get-vaccine
