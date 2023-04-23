@@ -11,11 +11,9 @@
   date-administered
   vaccine-name
   cvx
-  mvx
-  evaluation-status
-  evaluation-reason)
+  mvx)
 
-(defun get-patient-info (id)
+(defun get-patient (id)
   "When using cl-cdsi-cases as the source, fetch the patient information from the testcase identified by the id."
   (let* ((record (cl-cdsi-cases:get-case (as-string id)))
          (patient (cl-cdsi-cases:testcase-patient record))
@@ -33,9 +31,7 @@
              :date-administered (parse-date (cl-cdsi-cases:dose-date-administered dose))
              :vaccine-name (cl-cdsi-cases:dose-vaccine-name dose)
              :cvx (parse-integer (cl-cdsi-cases:dose-cvx dose))
-             :mvx (cl-cdsi-cases:dose-mvx dose)
-             :evaluation-status (as-keyword (cl-cdsi-cases:dose-evaluation-status dose))
-             :evaluation-reason (cl-cdsi-cases:dose-evaluation-reason dose)))
+             :mvx (cl-cdsi-cases:dose-mvx dose)))
 
 (defgeneric as-string (id)
   (:documentation "Return the id in the form expected by the case library."))

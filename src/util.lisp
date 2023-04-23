@@ -31,3 +31,11 @@
 
 (defun get-bool-value (node tag)
   (get-value #'parse-bool node tag))
+
+;;;; Sequence helpers
+(defun flatten (lst)
+  "Flatten the list lst
+   https://stackoverflow.com/questions/49780045/lisp-list-linearization-with-map"
+  (cond ((null lst) nil)
+        ((atom lst) (list lst))
+        (t (loop for e in lst appending (flatten e)))))

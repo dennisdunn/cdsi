@@ -9,7 +9,8 @@
            :get-integer-value
            :get-bool-value
            :get-date-value
-           :get-age-value))
+           :get-age-value
+           :flatten))
 
 (defpackage :cl-cdsi/calendar
   (:nicknames :calendar)
@@ -27,11 +28,15 @@
            :date>
            :date>=))
 
-(defpackage :cl-cdsi/schedule
+(defpackage :cl-cdsi/support-interface
   (:nicknames :schedule)
   (:use :cl
         :util)
-  (:export :get-vaccine
+  (:export :vaccine
+           :association
+           :antigen-dose
+           :get-vaccine
+           :get-vaccine-antigens
            :vaccine-cvx
            :vaccine-description
            :vaccine-associations
@@ -55,9 +60,7 @@
            :dose-vaccine-name
            :dose-cvx
            :dose-mvx
-           :dose-evaluation-status
-           :dose-evaluation-reason
-           :get-patient-info))
+           :get-patient))
 
 (defpackage :cl-cdsi
   (:nicknames :cdsi)
@@ -65,4 +68,4 @@
         :util
         :calendar
         :ehr
-        :support))
+        :schedule))
