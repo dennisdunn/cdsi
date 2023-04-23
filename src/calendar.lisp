@@ -23,16 +23,19 @@
 
 (defun parse-interval (s)
   "Return a list of intervals parsed from the string."
-  (let ((str2 (ppcre:regex-replace-all "[sS\\s]" s ""))
-        result)
-    (ppcre:do-register-groups ((#'parse-integer value) (#'as-keyword unit))
-                              ("([+-]?\\d+)(\\w+)" str2)
-                              (push (make-interval value unit) result))
-    (nreverse result)))
+  (if (or (string= "" s) (null s))
+      nil
+      (let ((str2 (ppcre:regex-replace-all "[sS\\s]" s ""))
+            result)
+        (ppcre:do-register-groups ((#'parse-integer value) (#'as-keyword unit))
+                                  ("([+-]?\\d+)(\\w+)" str2)
+                                  (push (make-interval value unit) result))
+        (nreverse result))))
 
 ;;;; Date arithmetic
 
 (defun date+ (dt int)
+  "Add the interval to the date. If the interval is nil then just return the date."
   (if (interval-p int)
       (let ((u (unit int))
             (v (value int)))
