@@ -14,3 +14,11 @@
   (:use :cl
         :cdsi.schedule
         :rove))
+
+(defpackage :cdsi/tests/cdsi
+  (:use :cl
+        :cdsi.schedule
+        :cdsi.calendar
+        :cdsi.ehr
+        :cdsi
+        :rove))

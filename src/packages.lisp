@@ -59,4 +59,7 @@
         :cdsi.util
         :cdsi.calendar
         :cdsi.ehr
-        :cdsi.schedule))
+        :cdsi.schedule)
+  (:export :as-antigen-doses
+           :antigen-dose-p
+           :antigen-dose-evaluation-status))
