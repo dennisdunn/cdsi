@@ -1,21 +1,14 @@
 (in-package :cl-user)
 
-(defpackage :cl-cdsi/util
-  (:nicknames :util)
+(defpackage :cdsi.util
   (:use :cl)
   (:export :as-keyword
            :parse-bool
-           :get-string-value
-           :get-integer-value
-           :get-bool-value
-           :get-date-value
-           :get-age-value
            :flatten))
 
-(defpackage :cl-cdsi/calendar
-  (:nicknames :calendar)
+(defpackage :cdsi.calendar
   (:use :cl
-        :util)
+        :cdsi.util)
   (:export :date
            :interval
            :parse-date
@@ -28,10 +21,10 @@
            :date>
            :date>=))
 
-(defpackage :cl-cdsi/support-interface
-  (:nicknames :schedule)
+(defpackage :cdsi.schedule
   (:use :cl
-        :util)
+        :cdsi.util
+        :cdsi.calendar)
   (:export :vaccine
            :association
            :antigen-dose
@@ -44,11 +37,10 @@
            :association-begin-age
            :association-end-age))
 
-(defpackage :cl-cdsi/ehr-interface
-  (:nicknames :ehr)
+(defpackage :cdsi.ehr
   (:use :cl
-        :util
-        :calendar)
+        :cdsi.util
+        :cdsi.calendar)
   (:export :patient
            :patient-dob
            :patient-gender
@@ -62,10 +54,9 @@
            :dose-mvx
            :get-patient))
 
-(defpackage :cl-cdsi
-  (:nicknames :cdsi)
+(defpackage :cdsi
   (:use :cl
-        :util
-        :calendar
-        :ehr
-        :schedule))
+        :cdsi.util
+        :cdsi.calendar
+        :cdsi.ehr
+        :cdsi.schedule))

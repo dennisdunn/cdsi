@@ -1,4 +1,4 @@
-(in-package :cl-cdsi)
+(in-package :cdsi)
 
 (defstruct (antigen-dose (:include ehr:dose)
                          (:conc-name antigen-dose-))

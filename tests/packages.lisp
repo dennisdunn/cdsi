@@ -1,16 +1,16 @@
 (in-package :cl-user)
 
-(defpackage :cl-cdsi/tests/calendar
+(defpackage :cdsi/tests/calendar
   (:use :cl
-        :cl-cdsi/calendar
+        :cdsi.calendar
         :rove))
 
-(defpackage :cl-cdsi/tests/ehr-interface
+(defpackage :cdsi/tests/ehr
   (:use :cl
-        :cl-cdsi/ehr-interface
+        :cdsi.ehr
         :rove))
 
-(defpackage :cl-cdsi/tests/supporting-data
+(defpackage :cdsi/tests/schedule
   (:use :cl
-        :cl-cdsi/supporting-data
+        :cdsi.schedule
         :rove))

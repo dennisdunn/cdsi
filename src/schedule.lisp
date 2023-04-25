@@ -1,4 +1,4 @@
-(in-package :cl-cdsi/support-interface)
+(in-package :cdsi.schedule)
 
 (defstruct vaccine
            cvx
@@ -9,9 +9,6 @@
            antigen
            begin-age
            end-age)
-
-(defun get-vaccine-nodes ()
-       (xmls:xmlrep-find-child-tags "cvxMap" (xmls:xmlrep-find-child-tag "cvxToAntigenMap" (cdsi-support:schedule))))
 
 (defun as-vaccine (node)
        (make-vaccine :cvx (get-integer-value node "cvx")
@@ -26,7 +23,7 @@
 (defun get-vaccine-node (cvx)
        (find-if (lambda (node)
                         (= cvx (get-integer-value node "cvx")))
-                (get-vaccine-nodes)))
+                (cdsi.data:get-schedule "cvxToAntigenMap")))
 
 (defgeneric get-vaccine (cvx)
             (:documentation "Get the vaccine from the supporting data."))
@@ -44,4 +41,24 @@
            (mapcar #'association-antigen (vaccine-associations cvx)))
 
 (defmethod get-vaccine-antigens ((cvx integer))
-           (get-vaccine-antigens (get-vaccine cvx)))  
+           (get-vaccine-antigens (get-vaccine cvx)))
+
+;;;; Xml helpers
+
+(defun get-value (parser node tag)
+  (funcall parser (xmls:xmlrep-string-child (xmls:xmlrep-find-child-tag tag node) nil)))
+
+(defun get-string-value (node tag)
+  (get-value #'identity node tag))
+
+(defun get-integer-value (node tag)
+  (get-value #'parse-integer node tag))
+
+(defun get-date-value (node tag)
+  (get-value #'parse-date node tag))
+
+(defun get-age-value (node tag)
+  (get-value #'parse-interval node tag))
+
+(defun get-bool-value (node tag)
+  (get-value #'parse-bool node tag))
