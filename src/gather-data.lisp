@@ -7,6 +7,7 @@
         :cdsi.patient
         :cdsi.vaccine)
   (:export :antigen-dose
+           :antigen-dose-p
            :antigen-dose-number
            :antigen-dose-administered
            :antigen-dose-vaccine-name

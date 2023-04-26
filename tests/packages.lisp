@@ -5,20 +5,23 @@
         :cdsi.calendar
         :rove))
 
-(defpackage :cdsi/tests/ehr
+(defpackage :cdsi/tests/patient
   (:use :cl
-        :cdsi.ehr
+        :cdsi.patient
         :rove))
 
 (defpackage :cdsi/tests/schedule
   (:use :cl
-        :cdsi.schedule
+        :cdsi.vaccine
+        :cdsi.antigen
         :rove))
 
 (defpackage :cdsi/tests/cdsi
   (:use :cl
-        :cdsi.schedule
+        :cdsi.vaccine
+        :cdsi.antigen
         :cdsi.calendar
-        :cdsi.ehr
+        :cdsi.patient
+        :cdsi.gather-data
         :cdsi
         :rove))

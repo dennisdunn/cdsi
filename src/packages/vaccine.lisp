@@ -6,11 +6,13 @@
         :cdsi.calendar)
   (:export :get-vaccine
            :vaccine
+           :vaccine-p
            :vaccine-cvx
            :vaccine-description
            :vaccine-associations
            :vaccine-antigens
            :association
+           :association-p
            :association-antigen
            :association-begin-age
            :association-end-age))

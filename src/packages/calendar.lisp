@@ -44,7 +44,7 @@
       nil
       (let ((str2 (ppcre:regex-replace-all "[sS\\s]" s ""))
             result)
-        (ppcre:do-register-groups ((#'parse-integer value) (#'as-keyword unit))
+        (ppcre:do-register-groups ((#'parse-integer value) (#'parse-keyword unit))
                                   ("([+-]?\\d+)(\\w+)" str2)
                                   (push (make-interval value unit) result))
         (nreverse result))))

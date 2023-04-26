@@ -5,12 +5,14 @@
         :cdsi.util
         :cdsi.calendar)
   (:export :patient
+           :patient-p
            :patient-dob
            :patient-gender
            :patient-assement-date
            :patient-doses
            :get-patient
            :dose
+           :dose-p
            :dose-number
            :dose-date-administered
            :dose-vaccine-name
