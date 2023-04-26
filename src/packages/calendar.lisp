@@ -1,3 +1,20 @@
+(in-package :cl-user)
+
+(defpackage :cdsi.calendar
+  (:use :cl
+        :cdsi.util)
+  (:export :date
+           :interval
+           :parse-date
+           :parse-interval
+           :parse
+           :date+
+           :date=
+           :date<
+           :date<=
+           :date>
+           :date>=))
+
 (in-package :cdsi.calendar)
 
 (defstruct (date (:conc-name nil) (:constructor make-date (year month day)))
@@ -7,7 +24,7 @@
   value unit)
 
 (defparameter +seconds-in-a-day+ (* 60 60 24))
-(defparameter +timezone+ 0) ; All times are in the UTC timezone for calculation purposes.
+(defparameter +timezone+ 0) ; All dates are in the UTC timezone for calculation purposes.
 
 ;;;; Parsing
 

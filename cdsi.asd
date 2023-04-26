@@ -7,13 +7,16 @@
                         "cdsi.data")
            :components ((:module "src"
                                  :components
-                                 ((:file "packages")
-                                  (:file "util")
-                                  (:file "calendar")
-                                  (:file "ehr")
-                                  (:file "schedule")
+                                 ((:module "packages"
+                                           :components
+                                           ((:file "util")
+                                            (:file "calendar")
+                                            (:file "vaccine")
+                                            (:file "antigen")
+                                            (:file "patient")))
                                   (:file "main")
-                                  (:file "gather-data"))))
+                                  (:file "gather-data")
+                                  (:file "patient-series"))))
            :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
            :in-order-to ((test-op (test-op "cdsi/tests"))))
 
@@ -29,6 +32,7 @@
                                   (:file "calendar")
                                   (:file "ehr")
                                   (:file "schedule")
-                                  (:file "gather-data"))))
+                                  (:file "gather-data")
+                                  (:file "patient-series"))))
            :description "Test system for cl-cdsi"
            :perform (test-op (op c) (symbol-call :rove :run c)))
