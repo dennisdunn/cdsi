@@ -1,12 +1,17 @@
 (in-package :cl-user)
 
 (defpackage :cdsi.calendar
-  (:use :cl
-        :cdsi.util)
+  (:use :cl)
   (:export :date
+           :date-year
+           :date-month
+           :date-day
            :interval
+           :interval-unit
+           :interval-value
            :parse-date
            :parse-interval
+           :parse-keyword
            :parse
            :date+
            :date=
@@ -48,6 +53,12 @@
                                   ("([+-]?\\d+)(\\w+)" str2)
                                   (push (make-interval value unit) result))
         (nreverse result))))
+
+;;;; Intern a string or symbol in the KEYWORD package.
+(defun parse-keyword (s)
+  (if (symbolp s)
+      (intern (symbol-name s) :keyword)
+      (intern (string-upcase (string s)) :keyword)))
 
 ;;;; Date arithmetic
 

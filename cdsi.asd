@@ -9,8 +9,8 @@
                                  :components
                                  ((:module "packages"
                                            :components
-                                           ((:file "util")
-                                            (:file "calendar")
+                                           ((:file "calendar")
+                                            (:file "util")
                                             (:file "vaccine")
                                             (:file "antigen")
                                             (:file "patient")))
