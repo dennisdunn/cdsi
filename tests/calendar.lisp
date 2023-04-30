@@ -1,16 +1,16 @@
 (in-package :cdsi/tests/calendar)
 
-(defparameter *date-a* (cdsi.calendar::make-date 2000 3 30))
-(defparameter *date-b* (cdsi.calendar::make-date 2000 3 31))
+(defparameter *date-a* (make-date 2000 3 30))
+(defparameter *date-b* (make-date 2000 3 31))
 
 (deftest test-parsing-cdsi-calendar-units
          (testing "date"
                   (let ((dt (parse-date "02/29/2000")))
-                    (ok (= (cdsi.calendar::year dt) 2000))))
+                    (ok (= (date-year dt) 2000))))
 
          (testing "interval"
                   (let ((int (parse-interval "1000 years")))
-                  (ok (eq (cdsi.calendar::unit (car int)) :year)))))
+                  (ok (eq (interval-unit (car int)) :year)))))
 
 (deftest test-date-comparison-functions
          (testing "="

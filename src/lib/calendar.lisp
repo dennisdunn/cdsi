@@ -15,8 +15,8 @@
 (defun date+ (dt int)
   "Add the interval to the date. If the interval is nil then just return the date."
   (if (interval-p int)
-      (let ((u (unit int))
-            (v (value int)))
+      (let ((u (interval-unit int))
+            (v (interval-value int)))
         (cond ((eq u :year) (year+ dt v))
               ((eq u :month) (month+ dt v))
               ((eq u :week) (week+ dt v))
@@ -24,12 +24,12 @@
       (reduce #'date+ int :initial-value dt)))
 
 (defun year+ (dt v)
-  (normalize (make-date (+ (year dt) v) (month dt) (day dt))))
+  (normalize (make-date (+ (date-year dt) v) (date-month dt) (date-day dt))))
 
 (defun month+ (dt v)
-  (let ((y (year dt))
-        (m (+ (month dt) v))
-        (d (day dt)))
+  (let ((y (date-year dt))
+        (m (+ (date-month dt) v))
+        (d (date-day dt)))
     (multiple-value-bind (delta-y new-m) (floor m 12)
       (normalize (make-date (+ y delta-y) new-m d)))))
 
@@ -58,7 +58,7 @@
 ;;;; Misc
 
 (defun ->timestamp (dt)
-  (encode-universal-time 0 0 0 (day dt) (month dt) (year dt) +timezone+))
+  (encode-universal-time 0 0 0 (date-day dt) (date-month dt) (date-year dt) +timezone+))
 
 (defun ->date (ts)
   (multiple-value-bind (s min h d m y) (decode-universal-time ts +timezone+)

@@ -32,7 +32,6 @@
                                  :components
                                  ((:file "packages")
                                   (:file "calendar")
-                                  (:file "patient")
-                                  (:file "cdsi"))))
+                                  (:file "patient"))))
            :description "Test system for cl-cdsi"
            :perform (test-op (op c) (symbol-call :rove :run c)))
