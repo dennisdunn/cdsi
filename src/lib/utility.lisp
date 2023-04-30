@@ -1,28 +1,4 @@
-(in-package :cl-user)
-
-(defpackage :cdsi.util
-  (:use :cl)
-  (:export :parse-bool
-           :flatten
-           :with-nil-handler
-           :get-value
-           :get-string-value
-           :get-integer-value
-           :get-date-value
-           :get-age-value
-           :get-bool-value
-           :get-keyword-value))
-
-(in-package :cdsi.util)
-
-;;;; Parsers
-
-(defun parse-bool (x)
-  (not (or (null x)
-           (equal 0 x)
-           (equal "" x)
-           (equal "F" (format nil "~:@(~a~)" x))
-           (equal "FALSE" (format nil "~:@(~a~)" x)))))
+(in-package :cdsi.lib)
 
 ;;;; Sequence helpers
 
@@ -33,7 +9,7 @@
         ((atom lst) (list lst))
         (t (loop for e in lst appending (flatten e)))))
 
-;;;; If handle-case catches a condition then simply return nil. Dangerous? Yeah. 
+;;;; If handle-case catches a condition then simply return nil. Dangerous? Yeah.
 
 (defmacro with-nil-handler (&rest body)
   "Evaluate the body and return nil iff a condition occurs."
@@ -56,10 +32,10 @@
   (get-value #'parse-bool node tag))
 
 (defun get-keyword-value (node tag)
-  (get-value #'cdsi.calendar:parse-keyword node tag))
+  (get-value #'parse-keyword node tag))
 
 (defun get-date-value (node tag)
-  (get-value #'cdsi.calendar:parse-date node tag))
+  (get-value #'parse-date node tag))
 
-(defun get-age-value (node tag)
-  (get-value #'cdsi.calendar:parse-interval node tag))
+(defun get-interval-value (node tag)
+  (get-value #'parse-interval node tag))
