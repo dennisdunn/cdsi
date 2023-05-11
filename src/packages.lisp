@@ -25,7 +25,6 @@
            :parse-keyword
            :parse-date
            :parse-interval
-           :flatten
            :with-nil-handler
            :get-string-value
            :get-integer-value
@@ -34,45 +33,16 @@
            :get-date-value
            :get-interval-value))
 
-(defpackage :cdsi.patient
-  (:use :cl
-        :cdsi.lib)
-  (:export :patient
-           :patient-id
-           :patient-dob
-           :patient-gender
-           :patient-assement-date
-           :patient-doses
-           :dose-number
-           :dose-date-administered
-           :dose-vaccine-name
-           :dose-cvx
-           :dose-mvx))
-
-(defpackage :cdsi.vaccine
-  (:use :cl
-        :cdsi.lib)
-  (:export :vaccine
-           :vaccine-cvx
-           :vaccine-description
-           :vaccine-associations
-           :vaccine-antigens
-           :association-antigen
-           :association-begin-age
-           :association-end-age))
-
-(defpackage :cdsi.antigen
-  (:use :cl
-        :cdsi.lib)
-  (:export :antigen
+(defpackage :cdsi.api
+  (:use :cl)
+  (:export :antigen-catalog
+           :antigen
            :antigen-series
-           :series-type
-           :series-gender
-           :series-indications
-           :indication-observation-code
-           :indication-description
-           :indication-guidance
-           :indication-begin-age
-           :indication-end-age
-           :observation-text
-           :observation-code))
+           :vaccine-catalog
+           :vaccine
+           :observation-catalog
+           :observation
+           :vaccine-group-catalog
+           :case-catalog
+           :case-item
+           :case-medical))

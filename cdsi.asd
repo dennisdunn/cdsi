@@ -3,9 +3,9 @@
            :author "Dennis Dunn"
            :license "MIT"
            :depends-on ("cl-ppcre"
-                        "xmls"
-                        "cdsi.cases"
-                        "cdsi.data")
+                        "kebab"
+                        "drakma"
+                        "yason")
            :serial t
            :components ((:module "src"
                                  :components
@@ -14,11 +14,8 @@
                                   (:module "lib"
                                            :components
                                            ((:file "calendar")
-                                            (:file "utility")
-                                            (:file "parsers")))
-                                  (:file "patient")
-                                  (:file "vaccine")
-                                  (:file "antigen"))))
+                                            (:file "api")
+                                            (:file "parsers"))))))
            :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
            :in-order-to ((test-op (test-op "cdsi/tests"))))
 
