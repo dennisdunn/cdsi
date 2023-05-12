@@ -18,6 +18,9 @@
            :date>
            :date>=))
 
+(defpackage :parse
+  (:use :cl))
+
 (defpackage :cdsi.lib
   (:import-from :cdsi.calendar :make-date :make-interval)
   (:use :cl)
@@ -46,3 +49,9 @@
            :case-catalog
            :case-item
            :case-medical))
+
+(defpackage :cdsi
+  (:use :cl
+        :cdsi.calendar
+        :cdsi.lib
+        :cdsi.api))
