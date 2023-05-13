@@ -22,6 +22,9 @@
 (defparameter *case-by-id* "v1/cases/~a/")
 (defparameter *medical-by-case-id* "v1/cases/~a/medical/")
 
+(defun catalogs ()
+  (list :antigens (antigen-catalog) :vaccines (vaccine-catalog) :cases (case-catalog) :observations (observation-catalog)))
+
 (defun fetch-data (url &optional (fmt :plist))
   (let ((stream (drakma:http-request url :want-stream t)))
     (setf (flexi-streams:flexi-stream-external-format stream) :utf-8)

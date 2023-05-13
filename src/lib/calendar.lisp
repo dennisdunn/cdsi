@@ -1,10 +1,10 @@
 
 (in-package :cdsi.calendar)
 
-(defstruct (date (:constructor make-date (year month day)))
+(defstruct date
   year month day)
 
-(defstruct (interval (:constructor make-interval (value unit)))
+(defstruct interval
   value unit)
 
 (defparameter +seconds-in-a-day+ (* 60 60 24))
@@ -24,14 +24,14 @@
       (reduce #'date+ int :initial-value dt)))
 
 (defun year+ (dt v)
-  (normalize (make-date (+ (date-year dt) v) (date-month dt) (date-day dt))))
+  (normalize (make-date :year (+ (date-year dt) v) :month (date-month dt) :day (date-day dt))))
 
 (defun month+ (dt v)
   (let ((y (date-year dt))
         (m (+ (date-month dt) v))
         (d (date-day dt)))
     (multiple-value-bind (delta-y new-m) (floor m 12)
-      (normalize (make-date (+ y delta-y) new-m d)))))
+      (normalize (make-date :year (+ y delta-y) :month new-m :day d)))))
 
 (defun week+ (dt v) (day+ dt (* 7 v)))
 
@@ -63,7 +63,8 @@
 (defun ->date (ts)
   (multiple-value-bind (s min h d m y) (decode-universal-time ts +timezone+)
     (declare (ignore s min h))
-    (make-date y m d)))
+    (make-date :year y :month m :day d)))
 
 (defun normalize (dt)
   (->date (->timestamp dt)))
+

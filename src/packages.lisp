@@ -18,27 +18,15 @@
            :date>
            :date>=))
 
-(defpackage :parse
-  (:use :cl))
-
-(defpackage :cdsi.lib
+(defpackage :cdsi.parse
   (:import-from :cdsi.calendar :make-date :make-interval)
   (:use :cl)
-  (:export :parse-bool
-           :parse-keyword
-           :parse-date
-           :parse-interval
-           :with-nil-handler
-           :get-string-value
-           :get-integer-value
-           :get-bool-value
-           :get-keyword-value
-           :get-date-value
-           :get-interval-value))
+  (:export :parse))
 
 (defpackage :cdsi.api
   (:use :cl)
-  (:export :antigen-catalog
+  (:export :catalogs
+           :antigen-catalog
            :antigen
            :antigen-series
            :vaccine-catalog
@@ -53,5 +41,5 @@
 (defpackage :cdsi
   (:use :cl
         :cdsi.calendar
-        :cdsi.lib
+        :cdsi.parse
         :cdsi.api))
