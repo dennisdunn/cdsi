@@ -5,6 +5,7 @@
            :depends-on ("cl-ppcre"
                         "kebab"
                         "cxml"
+                        "cl-json"
                         "xpath")
            :serial t
            :components ((:module "src"
@@ -18,7 +19,8 @@
                                            ((:file "packages")
                                             (:file "common")
                                             (:file "antigen")
-                                            (:file "schedule")))
+                                            (:file "schedule")
+                                            (:file "cases")))
                                   (:file "packages"))))
            :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
            :in-order-to ((test-op (test-op "cdsi/tests"))))

@@ -12,7 +12,7 @@
 
 (defun list-antigen-files ()
   "Get a list of all of the antigen files in the *data-path*."
-  (let ((*default-pathname-defaults* *data-path*))
+  (let ((*default-pathname-defaults* (pathname *data-path*)))
     (directory *antigen-name-glob*)))
 
 (defun get-antigen-name (path)

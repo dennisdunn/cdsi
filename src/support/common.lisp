@@ -1,11 +1,10 @@
 (in-package :support)
 
-(defparameter *data-path* (asdf:system-relative-pathname
-                            "cdsi"
-                            "supporting-data-4.54-508/Version 4.54 - 508/XML/")) ; don't forget the trailing slash!
+(defparameter *data-path* (uiop:native-namestring #P"~/Documents/Resources/cdsi-supporting-data/")); don't forget the trailing slash!
 (defparameter *schedule-name* "ScheduleSupportingData.xml")
 (defparameter *antigen-name-glob* "Antigen*.xml")
 (defparameter *antigen-name-re* "AntigenSupportingData- (.*)-508")
+(defparameter *cases-name* "assessments.json")
 
 (defun load-xml (path)
   "Read and parse the given xml file."
