@@ -1,4 +1,4 @@
-(in-package :cdsi/tests/calendar)
+(in-package :cdsi/tests)
 
 (defparameter *date-a* (make-date 2000 3 30))
 (defparameter *date-b* (make-date 2000 3 31))

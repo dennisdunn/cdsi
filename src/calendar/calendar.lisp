@@ -10,6 +10,10 @@
 (defparameter +seconds-in-a-day+ (* 60 60 24))
 (defparameter +timezone+ 0) ; All dates are in the UTC timezone for calculation purposes.
 
+;;;; Intern a string or symbol in the KEYWORD package.
+(defun parse-keyword (s)
+  (intern (string-upcase (string s)) :keyword))
+
 ;;;; Date arithmetic
 
 (defun date+ (dt int)
@@ -74,7 +78,7 @@
   "Parse a date of the form 'MM/DD/YYYY'"
   (let* ((parts (ppcre:split "/" s))
          (date-parts (mapcar #'parse-integer parts)))
-    (calendar:make-date (third date-parts) (first date-parts) (second date-parts))))
+    (make-date (third date-parts) (first date-parts) (second date-parts))))
 
 ;;;; Parse intrvals "1 year - 4 days"
 
@@ -86,6 +90,6 @@
             result)
         (ppcre:do-register-groups ((#'parse-integer value) (#'parse-keyword unit))
           ("([+-]?\\d+)(\\w+)" str2)
-          (push (calendar:make-interval value unit) result))
+          (push (make-interval value unit) result))
         (nreverse result))))
 

@@ -2,4 +2,5 @@
 
 (defpackage :cdsi
   (:use :cl 
+    :calendar
     :support))
