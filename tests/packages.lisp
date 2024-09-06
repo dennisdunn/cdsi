@@ -2,6 +2,7 @@
 
 (defpackage :cdsi/tests
   (:use :cl
-        :calendar
-        :support
+        :cdsi
+        :cdsi.calendar
+        :cdsi.supporting-data
         :rove))
