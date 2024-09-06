@@ -17,10 +17,7 @@
                                   (:module "support"
                                            :components
                                            ((:file "packages")
-                                            (:file "common")
-                                            (:file "antigen")
-                                            (:file "schedule")
-                                            (:file "cases")))
+                                            (:file "support")))
                                   (:file "packages"))))
            :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
            :in-order-to ((test-op (test-op "cdsi/tests"))))
