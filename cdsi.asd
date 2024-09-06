@@ -6,7 +6,7 @@
                         "kebab"
                         "cxml"
                         "cl-json"
-                        "xpath")
+                        "xpath" "dexador")
            :serial t
            :components ((:module "src"
                                  :components

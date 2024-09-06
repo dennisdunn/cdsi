@@ -1,27 +1,22 @@
 (in-package :support)
 
-(defparameter *data-path* (uiop:native-namestring #P"~/Documents/Resources/cdsi-supporting-data/")); don't forget the trailing slash!
-(defparameter *schedule-name* "ScheduleSupportingData.xml")
-(defparameter *antigen-name-glob* "Antigen*.xml")
-(defparameter *antigen-name-re* "AntigenSupportingData- (.*)-508")
-(defparameter *cases-name* "assessments.json")
+(defparameter *url* "https://api.opencdsi.org/v2/")
 
-(defun load-xml (path)
-  "Read and parse the given xml file."
-  (with-open-file (stream path)
-    (cxml:parse-file stream (cxml-dom:make-dom-builder))))
+(defun fetch (area key)
+  (with-input-from-string (s (dex:get (format nil "~a~(~a~)/~(~a~)/" *url* area key)))
+    (json:decode-json s)))
 
-(defun ->keyword (s)
-  "Intern a symbol named s in the keyword package."
-  (intern (string-upcase (kebab:to-kebab-case s)) :keyword))
+(defun catalog (area)
+  (fetch area 'catalog))
 
-(defun ->tag (s)
-  "Return the symbol as a tag."
-  (kebab:to-camel-case s))
+(defun antigen (key)
+  (fetch 'antigens key))
 
-(defun info (node)
-  (let ((h (make-hash-table)))
-    (xpath:do-node-set (item (xpath:evaluate "*" (dom:document-element node)))
-      (incf (gethash (->keyword (xpath-protocol:local-name item)) h 0)))
-    (loop for k being the hash-keys in h using (hash-value v)
-          collect (cons k v))))
+(defun vaccine (key)
+  (fetch 'vaccines key))
+
+(defun observation (key)
+  (fetch 'observations key))
+
+(defun patient (key)
+  (fetch 'cases key))
