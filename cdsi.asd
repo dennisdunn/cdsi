@@ -1,4 +1,4 @@
-(in-package :asdf-user)
+(in-package :asdf-user) ; important!
 
 (defsystem "cdsi"
            :version "0.1.0"
