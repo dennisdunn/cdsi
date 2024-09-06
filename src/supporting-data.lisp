@@ -1,4 +1,15 @@
-(in-package :support)
+(in-package :cl-user)
+
+(defpackage :cdsi.supporting-data
+  (:import-from :cdsi.common #:->keyword)
+  (:use :cl)
+  (:export :catalog
+           :antigen
+           :vaccine
+           :observation
+           :patient))
+
+(in-package :cdsi.supporting-data)
 
 (defparameter *url* "https://api.opencdsi.org/v2/")
 
@@ -7,7 +18,7 @@
     (json:decode-json s)))
 
 (defun tag (area l)
-  (let ((keyword (intern (string-right-trim "S" (string-upcase (string area))) :keyword)))
+  (let ((keyword (->keyword area)))
     (push (cons :type keyword) l)))
 
 (defun catalog (area)
@@ -25,9 +36,3 @@
 
 (defun patient (key)
   (tag 'patient (append (list (cons :key key)) (cdr (assoc :patient (fetch 'cases key))))))
-
-(defun get-property (key alist)
-  (cdr (assoc key alist)))
-
-(defun set-property (key alist value)
-  (setf (cdr (assoc key alist)) value))

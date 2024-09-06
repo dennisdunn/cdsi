@@ -1,3 +1,5 @@
+(in-package :asdf-user)
+
 (defsystem "cdsi"
            :version "0.1.0"
            :author "Dennis Dunn"
@@ -10,14 +12,9 @@
            :serial t
            :components ((:module "src"
                                  :components
-                                 ((:module "calendar"
-                                           :components
-                                           ((:file "packages")
-                                            (:file "calendar")))
-                                  (:module "support"
-                                           :components
-                                           ((:file "packages")
-                                            (:file "support")))
+                                 ((:file "common")
+                                  (:file "calendar" :depends-on ("common"))
+                                  (:file "supporting-data" :depends-on ("common"))
                                   (:file "packages"))))
            :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
            :in-order-to ((test-op (test-op "cdsi/tests"))))

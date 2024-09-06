@@ -2,5 +2,6 @@
 
 (defpackage :cdsi
   (:use :cl 
-    :calendar
-    :support))
+    :cdsi.common
+    :cdsi.calendar
+    :cdsi.supporting-data))

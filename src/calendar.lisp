@@ -1,5 +1,27 @@
+(in-package :cl-user)
 
-(in-package :calendar)
+(defpackage :cdsi.calendar
+  (:import-from :cdsi.common #:->keyword)
+  (:use :cl)
+  (:export :date
+           :make-date
+           :parse-date
+           :parse-interval
+           :date-year
+           :date-month
+           :date-day
+           :interval
+           :make-interval
+           :interval-unit
+           :interval-value
+           :date+
+           :date=
+           :date<
+           :date<=
+           :date>
+           :date>=))
+
+(in-package :cdsi.calendar)
 
 (defstruct (date (:constructor make-date (year month day)))
   year month day)
@@ -9,10 +31,6 @@
 
 (defparameter +seconds-in-a-day+ (* 60 60 24))
 (defparameter +timezone+ 0) ; All dates are in the UTC timezone for calculation purposes.
-
-;;;; Intern a string or symbol in the KEYWORD package.
-(defun parse-keyword (s)
-  (intern (string-upcase (string s)) :keyword))
 
 ;;;; Date arithmetic
 
@@ -88,7 +106,7 @@
       nil
       (let ((str2 (ppcre:regex-replace-all "[sS\\s]" s ""))
             result)
-        (ppcre:do-register-groups ((#'parse-integer value) (#'parse-keyword unit))
+        (ppcre:do-register-groups ((#'parse-integer value) (#'->keyword unit))
           ("([+-]?\\d+)(\\w+)" str2)
           (push (make-interval value unit) result))
         (nreverse result))))
