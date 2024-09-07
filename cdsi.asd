@@ -6,9 +6,7 @@
            :license "MIT"
            :depends-on ("cl-ppcre"
                         "kebab"
-                        "cxml"
                         "cl-json"
-                        "xpath" 
                         "dexador")
            :serial t
            :components ((:module "src"
