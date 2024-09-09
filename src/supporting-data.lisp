@@ -8,7 +8,9 @@
            :vaccine
            :observation
            :patient
-           :get-antigens-from-vaccine))
+           :get-antigens-from-vaccine
+           :get-antigens-from-vaccine-by-cvx
+           :get-antigen-doses))
 
 (in-package :cdsi.supporting-data)
 
@@ -40,4 +42,23 @@
   (append (list (cons :key key)) (cdr (assoc :patient (fetch 'cases key)))))
 
 (defun get-antigens-from-vaccine (vaccine)
+  "Given the vaccine get the associated antigens."
   (mapcar (lambda (a) (->keyword (get-property :antigen a) :trim nil)) (get-property :association vaccine)))
+
+(defun get-antigens-from-vaccine-by-cvx (cvx)
+  "Given the cvx number of the vaccine get the associated antigens."
+  (mapcar (lambda (a) (->keyword (get-property :antigen a) :trim nil)) (get-property :association (vaccine cvx))))
+
+(defun get-antigen-doses-for-administered-dose (administered-dose)
+  "Make antigen administered doses for the administered vaccine dose."
+  (let* ((cvx (assoc :cvx administered-dose))
+         (dt (assoc :date-administered administered-dose))
+         (antigens (get-antigens-from-vaccine-by-cvx (cdr cvx)))
+         (doses (mapcar (lambda (a) (list dt cvx (cons :antigen a))) antigens)))
+    doses))
+
+(defun get-antigen-doses (administered-doses)
+  "Make sorted antigen administered doses for the administered vaccine doses."
+  (let ((doses (mapcan #'get-antigen-doses-for-administered-dose administered-doses)))
+    (sort doses #'string-lessp :key (lambda (x) (get-property :date-administered x)))
+    (stable-sort doses #'string-lessp :key (lambda (x) (get-property :antigen x)))))
