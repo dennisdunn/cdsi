@@ -14,7 +14,8 @@
                                  ((:file "common")
                                   (:file "calendar" :depends-on ("common"))
                                   (:file "supporting-data" :depends-on ("common"))
-                                  (:file "packages"))))
+                                  (:file "gather-info" :depends-on ("supporting-data"))
+                                  (:file "cdsi"))))
            :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
            :in-order-to ((test-op (test-op "cdsi/tests"))))
 

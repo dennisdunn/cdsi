@@ -4,7 +4,8 @@
   (:use :cl
         :cdsi.common
         :cdsi.calendar
-        :cdsi.supporting-data))
+        :cdsi.supporting-data
+        :cdsi.gather-info))
 
 (in-package :cdsi)
 
