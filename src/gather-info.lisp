@@ -13,7 +13,7 @@
   (let* ((cvx (assoc :cvx vaccine-dose))
          (dt (assoc :date-administered vaccine-dose))
          (antigens (cvx->antigens (cdr cvx)))
-         (doses (mapcar (lambda (a) (list dt cvx (cons :antigen a))) antigens)))
+         (doses (mapcar (lambda (a) (list dt cvx (cons :antigen a) (cons :status :not-evaluated))) antigens)))
     doses))
 
 (defun vaccine-doses->antigen-doses (vaccine-doses)
