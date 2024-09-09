@@ -5,9 +5,9 @@
            :author "Dennis Dunn"
            :license "MIT"
            :depends-on ("cl-ppcre"
-                        "kebab"
                         "cl-json"
-                        "dexador")
+                        "dexador"
+                        "kebab")
            :serial t
            :components ((:module "src"
                                  :components

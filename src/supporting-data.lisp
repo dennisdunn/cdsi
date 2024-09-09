@@ -1,13 +1,14 @@
 (in-package :cl-user)
 
 (defpackage :cdsi.supporting-data
-  (:import-from :cdsi.common #:->keyword)
-  (:use :cl)
+  (:use :cl
+        :cdsi.common)
   (:export :catalog
            :antigen
            :vaccine
            :observation
-           :patient))
+           :patient
+           :get-antigens-from-vaccine))
 
 (in-package :cdsi.supporting-data)
 
@@ -18,28 +19,25 @@
   (with-input-from-string (s (dex:get (format nil "~a~(~a~)/~(~a~)/" *url* area key)))
     (json:decode-json s)))
 
-(defun tag (area l)
-  "Add a (:type . area) cons to the list."
-  (let ((keyword (->keyword area)))
-    (push (cons :type keyword) l)))
-
 (defun catalog (area)
   "Get a list of the available items from the area."
-  (let ((l (fetch area 'catalog)))
-    (push (cons :type :catalog) l)))
+  (fetch area 'catalog))
 
 (defun antigen (key)
   "Get the specified antigen."
-  (tag 'antigens (fetch 'antigens key)))
+  (fetch 'antigens key))
 
 (defun vaccine (key)
   "Get the specified vaccine."
-  (tag 'vaccines (fetch 'vaccines key)))
+  (fetch 'vaccines key))
 
 (defun observation (key)
   "Get the specified observation."
-  (tag 'observations (fetch 'observations key)))
+  (fetch 'observations key))
 
 (defun patient (key)
   "Get the specified patient."
-  (tag 'patient (append (list (cons :key key)) (cdr (assoc :patient (fetch 'cases key))))))
+  (append (list (cons :key key)) (cdr (assoc :patient (fetch 'cases key)))))
+
+(defun get-antigens-from-vaccine (vaccine)
+  (mapcar (lambda (a) (->keyword (get-property :antigen a) :trim nil)) (get-property :association vaccine)))

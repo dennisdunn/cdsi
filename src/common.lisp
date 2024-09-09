@@ -1,7 +1,8 @@
 (in-package :cl-user)
 
 (defpackage :cdsi.common
-  (:use :cl)
+  (:use :cl
+        :kebab)
   (:export :->keyword
            :get-property
            :set-property))
@@ -10,7 +11,7 @@
 
 (defun ->keyword (s &key (trim "S"))
   "Intern a string or symbol in the KEYWORD package."
-  (intern (string-right-trim trim (string-upcase (string s))) :keyword))
+  (intern (string-right-trim trim (string-upcase (kebab:to-kebab-case (string s)))) :keyword))
 
 (defun get-property (key alist)
   "Get the value associated with the key."
@@ -18,4 +19,4 @@
 
 (defun set-property (key alist value)
   "Set the value associated with the key."
-  (setf (cdr (assoc (->keyword  key :trim nil) alist)) value))
+  (setf (cdr (assoc (->keyword key :trim nil) alist)) value))
