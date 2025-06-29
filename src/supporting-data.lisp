@@ -8,6 +8,10 @@
            :vaccine
            :observation
            :patient
+           :patient-doses
+           :patient-gender
+           :gender
+           :dose-number
            :cvx->antigens))
 
 (in-package :cdsi.supporting-data)
@@ -37,10 +41,20 @@
 
 (defun patient (key)
   "Get the specified patient."
-  (append (list (cons :key key)) (cdr (assoc :patient (fetch 'cases key)))))
+  (cdr (assoc :patient (fetch 'cases key))))
+
+(defun patient-doses (patient)
+  (let ((doses (cdr (assoc :doses patient)))
+        (idx 0))
+    (mapcar #'(lambda (dose) (acons :number (incf idx) dose)) doses)))
+
+(defun patient-gender (patient)
+  (->keyword (cdr (assoc :gender patient))))
+
+(defun dose-number (dose)
+  (cdr (assoc :number dose)))
 
 (defun cvx->antigens (cvx)
   "Given the cvx number of the vaccine get the associated antigens."
   (mapcar (lambda (a) (->keyword (get-property :antigen a) :trim nil)) (get-property :association (vaccine cvx))))
-
 
