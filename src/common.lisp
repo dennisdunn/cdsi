@@ -32,5 +32,3 @@
   "Get the item specified by area/key as an alist."
   (with-input-from-string (s (dex:get (format nil "~a~(~a~)/~(~a~)/" *url* area key)))
     (json:decode-json s)))
-
-

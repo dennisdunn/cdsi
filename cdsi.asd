@@ -27,8 +27,8 @@
                "rove")
   :components ((:module "tests"
                         :components
-                        ((:file "packages")
+                        (
                          (:file "calendar")
-                         (:file "patient"))))
+                         (:file "health-records"))))
   :description "Test system for cl-cdsi"
   :perform (test-op (op c) (symbol-call :rove :run c)))
