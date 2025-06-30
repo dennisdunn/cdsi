@@ -10,20 +10,19 @@
 
 (in-package :cdsi/tests/health-records)
 
- (def-suite* health-records :in cdsi/tests::cdsi)
+(def-suite* health-records :in cdsi/tests::cdsi)
 
-; (deftest test-the-patient-interface
-;          (testing "fetch patient info by string id"
-;                   (let ((record (patient "2013-0004")))
-;                     (ok (not (null record)))))
+(test fetch-patient-info-by-id
+         (let ((record (patient "2013-0004")))
+           (is (not (null record)))))
 
-;          (testing "slot access on the patient sturcture"
-;                   (let* ((record (patient "2013-0004"))
-;                          (dose (car (patient-doses record))))
-;                     (ok (eq :f (gender record)))
-;                     (ok (eq 1 (dose-number dose)))))
+(test slot-access-on-the-patient-sturcture
+         (let* ((record (patient "2013-0004"))
+                (dose (car (patient-doses record))))
+           (is (eq :f (gender record)))
+           (is (eq 1 (dose-number dose)))))
 
-;          (testing "parsing of the patient dob"
-;                   (let* ((record (patient "2013-0004"))
-;                          (dob (parse-date (getv record :dob))))
-;                     (ok (date= (make-date 2020 6 4) dob)))))
+(test parse-the-patient-dob
+         (let* ((record (patient "2013-0004"))
+                (dob (parse-date (getv record :dob))))
+           (is (date= (make-date 2020 6 4) dob))))

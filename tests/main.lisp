@@ -6,7 +6,5 @@
 
 (in-package :cdsi/tests)
 
-(def-suite cdsi
+(def-suite* cdsi
            :description "Test the cdsi system.")
-
-(in-suite cdsi)
