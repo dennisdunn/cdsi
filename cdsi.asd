@@ -24,11 +24,12 @@
   :author "Dennis Dunn"
   :license "MIT"
   :depends-on ("cdsi"
-               "rove")
+               "fiveam")
+  :serial t
   :components ((:module "tests"
                         :components
-                        (
+                        ((:file "main")
                          (:file "calendar")
                          (:file "health-records"))))
   :description "Test system for cl-cdsi"
-  :perform (test-op (op c) (symbol-call :rove :run c)))
+  :perform (test-op (op c) (symbol-call :fiveam :run! (find-symbol* :cdsi :cdsi/tests))))
