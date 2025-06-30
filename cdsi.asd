@@ -12,6 +12,7 @@
   :components ((:module "src"
                         :components
                         ((:file "common")
+                         (:file "health-records" :depends-on ("common"))
                          (:file "calendar" :depends-on ("common"))
                          (:file "supporting-data" :depends-on ("common"))
                          (:file "gather-info" :depends-on ("supporting-data"))

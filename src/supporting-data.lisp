@@ -3,25 +3,23 @@
 (defpackage :cdsi.supporting-data
   (:use :cl
         :cdsi.common)
-  (:export :catalog
+  (:import-from :cdsi.calendar #:parse-date)
+  (:export :areas
+           :catalog
            :antigen
            :vaccine
            :observation
-           :patient
-           :patient-doses
-           :patient-gender
            :gender
            :dose-number
            :cvx->antigens))
 
 (in-package :cdsi.supporting-data)
 
-(defparameter *url* "https://api.opencdsi.org/v2/")
+;;;; API helpers
 
-(defun fetch (area key)
-  "Get the item specified by area/key as an alist."
-  (with-input-from-string (s (dex:get (format nil "~a~(~a~)/~(~a~)/" *url* area key)))
-    (json:decode-json s)))
+(defun areas ()
+  "Get a list of the supporting data content sections."
+  (list 'antignes 'vaccines 'observations))
 
 (defun catalog (area)
   "Get a list of the available items from the area."
@@ -39,22 +37,20 @@
   "Get the specified observation."
   (fetch 'observations key))
 
-(defun patient (key)
-  "Get the specified patient."
-  (cdr (assoc :patient (fetch 'cases key))))
+;;;; General helpers
 
-(defun patient-doses (patient)
-  (let ((doses (cdr (assoc :doses patient)))
-        (idx 0))
-    (mapcar #'(lambda (dose) (acons :number (incf idx) dose)) doses)))
+(defun dose-number (record)
+  "Get the dose number from the record."
+  (getv record :number))
 
-(defun patient-gender (patient)
-  (->keyword (cdr (assoc :gender patient))))
+(defun gender (record)
+  "Get the gender from the record."
+  (->keyword (getv record :gender)))
 
-(defun dose-number (dose)
-  (cdr (assoc :number dose)))
+(defun dob (record)
+  "Get the date of birth from the record."
+  (parse-date (getv record :dob)))
 
 (defun cvx->antigens (cvx)
   "Given the cvx number of the vaccine get the associated antigens."
-  (mapcar (lambda (a) (->keyword (get-property :antigen a) :trim nil)) (get-property :association (vaccine cvx))))
-
+  (mapcar (lambda (a) (->keyword (getv a :antigen) :trim nil)) (getv (vaccine cvx) :association)))

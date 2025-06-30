@@ -93,10 +93,12 @@
 ;;;; Parse dates "MM/DD/YYYY"
 
 (defun parse-date (s)
-  "Parse a date of the form 'MM/DD/YYYY'"
-  (let* ((parts (ppcre:split "/" s))
+  "Parse a date of the form 'MM/DD/YYYY' or 'YYYY-MM-DDTHH:MM:SS'"
+  (let* ((parts (ppcre:all-matches-as-strings "\\d+" s))
          (date-parts (mapcar #'parse-integer parts)))
-    (make-date (third date-parts) (first date-parts) (second date-parts))))
+    (if (= 3 (length date-parts))
+        (make-date (third date-parts) (first date-parts) (second date-parts))
+        (make-date (first date-parts) (second date-parts) (third date-parts)))))
 
 ;;;; Parse intrvals "1 year - 4 days"
 
@@ -110,4 +112,3 @@
           ("([+-]?\\d+)(\\w+)" str2)
           (push (make-interval value unit) result))
         (nreverse result))))
-

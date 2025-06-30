@@ -4,6 +4,7 @@
   (:use :cl
         :cdsi.common
         :cdsi.calendar
+        :cdsi.health-records
         :cdsi.supporting-data
         :cdsi.gather-info))
 

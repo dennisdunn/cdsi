@@ -19,5 +19,5 @@
 (defun vaccine-doses->antigen-doses (vaccine-doses)
   "Make sorted antigen administered doses for the administered vaccine doses."
   (let ((doses (mapcan #'vaccine-dose->antigen-doses vaccine-doses)))
-    (sort doses #'string-lessp :key (lambda (x) (get-property :date-administered x)))
-    (stable-sort doses #'string-lessp :key (lambda (x) (get-property :antigen x)))))
+    (sort doses #'string-lessp :key (lambda (x) (getv x :date-administered)))
+    (stable-sort doses #'string-lessp :key (lambda (x) (getv x :antigen)))))
