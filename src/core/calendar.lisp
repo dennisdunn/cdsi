@@ -1,8 +1,8 @@
 (in-package :cl-user)
 
-(defpackage :cdsi.calendar
-  (:import-from :cdsi.common #:->keyword)
+(defpackage :cdsi/core/calendar
   (:use :cl)
+  (:import-from :cdsi/core #:->keyword)
   (:export :date
            :make-date
            :parse-date
@@ -21,7 +21,7 @@
            :date>
            :date>=))
 
-(in-package :cdsi.calendar)
+(in-package :cdsi/core/calendar)
 
 (defstruct (date (:constructor make-date (year month day)))
   year month day)
@@ -109,6 +109,6 @@
       (let ((str2 (ppcre:regex-replace-all "[sS\\s]" s ""))
             result)
         (ppcre:do-register-groups ((#'parse-integer value) (#'->keyword unit))
-          ("([+-]?\\d+)(\\w+)" str2)
-          (push (make-interval value unit) result))
+                                  ("([+-]?\\d+)(\\w+)" str2)
+                                  (push (make-interval value unit) result))
         (nreverse result))))

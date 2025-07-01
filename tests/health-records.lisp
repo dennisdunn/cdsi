@@ -3,10 +3,10 @@
 (defpackage :cdsi/tests/health-records
   (:use :cl
         :fiveam
-        :cdsi.common
-        :cdsi.calendar
-        :cdsi.supporting-data
-        :cdsi.health-records))
+        :cdsi/core
+        :cdsi/core/calendar
+        :cdsi/core/supporting-data
+        :cdsi/core/health-records))
 
 (in-package :cdsi/tests/health-records)
 

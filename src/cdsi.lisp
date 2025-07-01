@@ -2,11 +2,11 @@
 
 (defpackage :cdsi
   (:use :cl
-        :cdsi.common
-        :cdsi.calendar
-        :cdsi.health-records
-        :cdsi.supporting-data
-        :cdsi.gather-info))
+        :cdsi/core
+        :cdsi/core/calendar
+        :cdsi/core/health-records
+        :cdsi/core/supporting-data
+        :cdsi/processing-model/gather-information))
 
 (in-package :cdsi)
 

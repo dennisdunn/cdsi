@@ -1,14 +1,14 @@
 (in-package :cl-user)
 
-(defpackage :cdsi.health-records
+(defpackage :cdsi/core/health-records
   (:nicknames :hr)
   (:use :cl
-        :cdsi.common)
+        :cdsi/core)
   (:export :patient
            :patient-doses
            :patient-gender))
 
-(in-package :cdsi.health-records)
+(in-package :cdsi/core/health-records)
 
 (defun patient (key)
   "Get the specified patient."

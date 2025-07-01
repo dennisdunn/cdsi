@@ -1,12 +1,12 @@
 (in-package :cl-user)
 
-(defpackage :cdsi.gather-info
+(defpackage :cdsi/processing-model/gather-information
   (:use :cl
-        :cdsi.common
-        :cdsi.supporting-data)
+        :cdsi/core
+        :cdsi/core/supporting-data)
   (:export :vaccine-doses->antigen-doses))
 
-(in-package :cdsi.gather-info)
+(in-package :cdsi/processing-model/gather-information)
 
 (defun vaccine-dose->antigen-doses (vaccine-dose)
   "Make antigen administered doses for the administered vaccine dose."

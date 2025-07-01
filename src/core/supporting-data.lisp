@@ -1,9 +1,9 @@
 (in-package :cl-user)
 
-(defpackage :cdsi.supporting-data
+(defpackage :cdsi/core/supporting-data
   (:use :cl
-        :cdsi.common)
-  (:import-from :cdsi.calendar #:parse-date)
+        :cdsi/core)
+  (:import-from :cdsi/core/calendar #:parse-date)
   (:export :areas
            :catalog
            :antigen
@@ -13,7 +13,7 @@
            :dose-number
            :cvx->antigens))
 
-(in-package :cdsi.supporting-data)
+(in-package :cdsi/core/supporting-data)
 
 ;;;; API helpers
 

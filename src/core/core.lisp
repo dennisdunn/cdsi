@@ -1,6 +1,6 @@
 (in-package :cl-user)
 
-(defpackage :cdsi.common
+(defpackage :cdsi/core
   (:use :cl
         :kebab)
   (:export :->keyword
@@ -8,7 +8,7 @@
            :setv
            :fetch))
 
-(in-package :cdsi.common)
+(in-package :cdsi/core)
 
 (defun ->keyword (s &key (trim "S"))
   "Intern a string or symbol in the KEYWORD package."

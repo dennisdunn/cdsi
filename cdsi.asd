@@ -11,11 +11,15 @@
   :serial t
   :components ((:module "src"
                         :components
-                        ((:file "common")
-                         (:file "health-records" :depends-on ("common"))
-                         (:file "calendar" :depends-on ("common"))
-                         (:file "supporting-data" :depends-on ("common"))
-                         (:file "gather-info" :depends-on ("supporting-data"))
+                        ((:module "core"
+                                  :components
+                                  ((:file "core")
+                                   (:file "calendar")
+                                   (:file "health-records")
+                                   (:file "supporting-data")))
+                         (:module "processing-model"
+                                  :components
+                                  ((:file "gather-information")))
                          (:file "cdsi"))))
   :description "A vaccine evaluation engine based on the CDC CDSi Logic Spec."
   :in-order-to ((test-op (test-op "cdsi/tests"))))
