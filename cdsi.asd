@@ -34,6 +34,7 @@
                         :components
                         ((:file "main")
                          (:file "calendar")
-                         (:file "health-records"))))
+                         (:file "health-records")
+                         (:file "gather-information"))))
   :description "Test system for cl-cdsi"
   :perform (test-op (op c) (symbol-call :fiveam :run! (find-symbol* :cdsi :cdsi/tests))))

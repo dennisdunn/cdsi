@@ -1,6 +1,7 @@
 (in-package :cl-user)
 
 (defpackage :cdsi/core/calendar
+  (:nicknames :cal)
   (:use :cl)
   (:import-from :cdsi/core #:->keyword)
   (:export :date

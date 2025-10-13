@@ -25,4 +25,4 @@
 (test parse-the-patient-dob
          (let* ((record (patient "2013-0004"))
                 (dob (parse-date (getv record :dob))))
-           (is (date= (make-date 2020 6 4) dob))))
+           (is (date= (make-date 2025 3 13) dob))))

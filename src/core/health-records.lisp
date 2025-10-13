@@ -12,7 +12,7 @@
 
 (defun patient (key)
   "Get the specified patient."
-  (getv (fetch 'cases key) :patient))
+  (getv (fetch 'case key) :patient))
 
 (defun patient-doses (patient)
   (let ((doses (getv patient :doses))
